@@ -1,7 +1,7 @@
 const express = require('express');
 const deputyRoutes = express.Router();
 
-let Deputy = require('../models/deputy.model');
+let Deputy = require('../models/DeputyModel');
 
 deputyRoutes.route('/add').post(function (req, res) {
   let deputy = new Deputy(req.body);
