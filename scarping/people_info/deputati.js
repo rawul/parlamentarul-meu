@@ -15,8 +15,8 @@ const url = 'http://www.cdep.ro/pls/parlam/structura2015.de?par=C';
             const party = $(row).find('td:nth-child(3)').text().replace(/(^[\s\r\t]+|[\s\r\t]+$)/gm, '');
             const email = $(row).find('td:nth-child(4) a').text().replace(/(^[\s\r\t]+|[\s\r\t]+$)/gm, '');
             const address = $(row).find('td:nth-child(4)').text().replace(email, '').replace(/(^[\s\r\t]+|[\s\r\t]+$)/gm, '');
-            if (email && party && name && address) {
-                people.push({ party, email, name, address });
+            if (name && party && email && address) {
+                people.push({ name, party, email, address });
             }
         }, [])
 
