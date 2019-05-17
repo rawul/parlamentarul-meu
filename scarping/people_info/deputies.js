@@ -15,11 +15,12 @@ const url = 'http://www.cdep.ro/pls/parlam/structura2015.de?par=C';
             const party = $(row).find('td:nth-child(3)').text().replace(/(^[\s\r\t]+|[\s\r\t]+$)/gm, '');
             const email = $(row).find('td:nth-child(4) a').text().replace(/(^[\s\r\t]+|[\s\r\t]+$)/gm, '');
             const address = $(row).find('td:nth-child(4)').text().replace(email, '').replace(/(^[\s\r\t]+|[\s\r\t]+$)/gm, '');
-            if (name && party && email && address) {
+            if (name && party && address) {
                 people.push({ name, party, email, address });
             }
         }, [])
 
+    console.log(people.length);
     fs.writeFileSync(filename, JSON.stringify(people));
     console.log('Deputies - Done');
 })();
