@@ -1,0 +1,93 @@
+.politicians-wrapper {
+  background-color: #f8f8f8;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 100px;
+  box-sizing: border-box;
+  .title {
+    font-size: 40px;
+    margin-bottom: 30px;
+  }
+  .politicians-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    .politician:hover{
+        .politician-content{
+            .image-wrapper{
+                img{
+                    width: 90px;
+                    height: 90px;
+                }
+            }
+        }
+    }
+    .politician {
+      width: 22.5%;
+      margin-right: 2%;
+      margin-bottom: 20px;
+      background-color: white;
+      height: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      .politician-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .image-wrapper {
+          width: 90px;
+          height: 90px;
+          border: 1px solid #fafafa;
+          border-radius: 50%;
+          margin: 30px 0px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            transition: .5s;
+          }
+        }
+        .name {
+          font-size: 20px;
+          font-weight: 600;
+          color: #d4d3db;
+        }
+        .role {
+          font-size: 18px;
+          color: #f1f1f2;
+        }
+      }
+      .footer {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-self: flex-end;
+        align-items: center;
+
+        .profile-button {
+          width: 50%;
+          height: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          color: #d4d3db;
+          font-weight: 600;
+        }
+        .profile-button:nth-of-type(1) {
+          border-right: 1px solid #f1f1f2;
+        }
+      }
+    }
+    //   .politician:nth-of-type(1){
+    //       margin-left: 2%;
+    //   }
+  }
+}
