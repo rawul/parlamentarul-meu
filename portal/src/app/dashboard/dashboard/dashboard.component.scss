@@ -1,0 +1,34 @@
+.logo {
+  height: 250px;
+  width: 750px;
+  -webkit-animation: fadein 2s;
+  /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 2s;
+  /* Firefox < 16 */
+  -ms-animation: fadein 2s;
+  /* Internet Explorer */
+  -o-animation: fadein 2s;
+  /* Opera < 12.1 */
+  animation: fadein 2s;
+}
+
+.logo-text{
+  color: #ffad00;
+  width: 400px;
+  text-align: center;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 200;
+  animation: fadein 3s;
+
+}
+
+.logo-text-2{
+  color: black;
+  width: 400px;
+  text-align: center;
+  font-weight: 100;
+  font-size: 18px;
+  animation: fadein 5s;
+
+}
