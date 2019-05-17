@@ -6,11 +6,11 @@
   /* Make it stick/fixed */
   // top: -64px;
   /* Hide the navbar 50 px outside of the top view */
-  width: 100%;
+  width: calc(100% - 40px);
   height: 64px;
   border-bottom: 0.1px solid #2a2929;
   background-color: white;
-  z-index: 9999;
+  z-index: 2;
   /* Full width */
   transition: top 0.3s;
   /* Transition effect when sliding down (and up) */
