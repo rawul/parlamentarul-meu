@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ProfileModalComponent } from './profile-modal/profile-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit() {
   }
@@ -24,6 +26,16 @@ export class DashboardComponent implements OnInit {
       }
     }
 
+  }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(ProfileModalComponent, {
+      width: '400px',
+      height: '500px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }
