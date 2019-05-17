@@ -12,6 +12,8 @@ app.use(passport.session());
 app.use(bodyParser.json());
 
 router.use(require(__dirname + "/controllers/UserController"));
+router.use(require(__dirname + "/controllers/UserController"));
+router.use(require(__dirname + "/controllers/UserController"));
 app.use('/api/v1', router);
 
 
