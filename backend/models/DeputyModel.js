@@ -2,10 +2,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let Deputy = new Schema({
-  name: String,
-  party: String,
-  address: String,
-  email: String
+  name: {
+    type: String
+  },
+  party: {
+    type: String
+  },
+  email: {
+    type: String
+  },
+  cabinetAddress: {
+    type: String
+  },
 },{
   collection: 'persons'
 });
