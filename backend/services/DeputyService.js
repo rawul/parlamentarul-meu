@@ -38,7 +38,8 @@ const DeputyService = {
     });
   },
   getDeputyByParty: async (req, res) => {
-    var p = req.params.party;
+    var p = req.query.party;
+    console.log(p);
     Deputy.findOne({party: p} ,(error, deputy) => {
       if(error){
         console.log(error);

@@ -5,8 +5,7 @@ const PORT = 4000;
 const cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./DB.js');
-const deputyRoutes = require('./services/DeputyService');
-const senatorRoutes = require('./services/SenatorService');
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
