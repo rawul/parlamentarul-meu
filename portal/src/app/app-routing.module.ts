@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: './dashboard/dashboard.module#DashboardModule',
   },
   {
+    path: 'politicians',
+    loadChildren: './politicians/politicians.module#PoliticiansModule',
+  },
+  {
     path: '**',
     redirectTo: '/dashboard'
   }
