@@ -15,15 +15,15 @@ const getPersonPicture = async (personLink) => {
     const relativeLink = $('input[type="image"]').attr('src');
     return `${domain}${relativeLink}`;
 }
-// $($0).attr('onclick');
 
 const getPersonDetails = async ($, row) => {
     const name = $(row).find('td').eq(1).text().replace(/(^[\s\r\t]+|[\s\r\t]+$)/gm, '');
     const district = $(row).find('td').eq(3).text().replace(/(^[\s\r\t]+|[\s\r\t]+$)/gm, '');
     const party = $(row).find('td').eq(5).text().replace(/(^[\s\r\t]+|[\s\r\t]+$)/gm, '');
-    if (district && party && name) {
+    const county = district.replace(/Circumscripţia electorală nr\.\d+\s|\selectoral.*?$/gm, '').toLowerCase();
+    if (district && party && name && county) {
         const pictureUrl = await getPersonPicture(`${domain}${$(row).find('a').attr('onclick').replace(/window\.open\("|\"\);/g, '')}`);
-        return { name, party, district, pictureUrl };
+        return { name, party, district, county, pictureUrl };
     }
     return [];
 }
