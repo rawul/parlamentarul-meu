@@ -12,7 +12,9 @@ app.use(passport.session());
 app.use(bodyParser.json());
 
 router.use(require(__dirname + "/controllers/UserController"));
-app.use('/api/v1', router);
+router.use(require(__dirname + "/controllers/SenatorController"));
+router.use(require(__dirname + "/controllers/DeputyController"));
 
+app.use('/api/v1', router);
 
 module.exports = app;
