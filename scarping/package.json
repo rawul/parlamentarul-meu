@@ -1,0 +1,16 @@
+{
+  "name": "scarping",
+  "version": "1.0.0",
+  "description": "",
+  "main": "deputati.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dump-people": "cd people_info && node deputati.js && node senatori.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "needle": "^2.4.0"
+  }
+}
