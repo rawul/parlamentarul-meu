@@ -1,0 +1,20 @@
+<form #f="ngForm" (submit)="f.form.valid && submit()">
+  <h1 mat-dialog-title>Autentificare</h1>
+  <div mat-dialog-content class="layout vertical">
+    <p>Introduceti credentialele mai jos:</p>
+    <mat-form-field>
+      <input [(ngModel)]="user.email" #email="ngModel" [email]="true" name="email" placeholder="Email" matInput
+        required>
+      <mat-error *ngIf="email.errors && email.errors.required">Camp obligatoriu</mat-error>
+      <mat-error *ngIf="email.errors &&  email.errors.email">Email invalid</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="user.password" name="password" placeholder="Parola" type="password" matInput required>
+      <mat-error>Camp obligatoriu</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close type="button">Inchide</button>
+    <button mat-button type="submit">Autentificare</button>
+  </div>
+</form>
