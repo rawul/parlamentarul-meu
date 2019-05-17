@@ -3,7 +3,7 @@ const deputyRoutes = express.Router();
 
 let Deputy = require('../models/DeputyModel');
 
-deputyRoutes.route('/add').post(function (req, res) {
+deputyRoutes.route('/deputy').post(function (req, res) {
   let deputy = new Deputy(req.body);
   deputy.save()
     .then(deputy => {
@@ -14,7 +14,7 @@ deputyRoutes.route('/add').post(function (req, res) {
     });
 });
 
-deputyRoutes.route('/').get(function (req, res) {
+deputyRoutes.route('/deputies').get(function (req, res) {
     Deputy.find(function(err, deputies){
     if(err){
       console.log(err);
