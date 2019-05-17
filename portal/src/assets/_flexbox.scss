@@ -71,75 +71,75 @@
 
 .flex,
 .flex-1 {
-    -ms-flex: 1 !important;
-    -webkit-flex: 1 !important;
-    flex: 1 !important;
+  -ms-flex: 1 !important;
+  -webkit-flex: 1 !important;
+  flex: 1 !important;
 }
 
 .flex-2 {
-    -ms-flex: 2 !important;
-    -webkit-flex: 2 !important;
-    flex: 2 !important;
+  -ms-flex: 2 !important;
+  -webkit-flex: 2 !important;
+  flex: 2 !important;
 }
 
 .flex-3 {
-    -ms-flex: 3 !important;
-    -webkit-flex: 3 !important;
-    flex: 3 !important;
+  -ms-flex: 3 !important;
+  -webkit-flex: 3 !important;
+  flex: 3 !important;
 }
 
 .flex-4 {
-    -ms-flex: 4 !important;
-    -webkit-flex: 4 !important;
-    flex: 4 !important;
+  -ms-flex: 4 !important;
+  -webkit-flex: 4 !important;
+  flex: 4 !important;
 }
 
 .flex-5 {
-    -ms-flex: 5 !important;
-    -webkit-flex: 5 !important;
-    flex: 5 !important;
+  -ms-flex: 5 !important;
+  -webkit-flex: 5 !important;
+  flex: 5 !important;
 }
 
 .flex-6 {
-    -ms-flex: 6 !important;
-    -webkit-flex: 6 !important;
-    flex: 6 !important;
+  -ms-flex: 6 !important;
+  -webkit-flex: 6 !important;
+  flex: 6 !important;
 }
 
 .flex-7 {
-    -ms-flex: 7 !important;
-    -webkit-flex: 7 !important;
-    flex: 7 !important;
+  -ms-flex: 7 !important;
+  -webkit-flex: 7 !important;
+  flex: 7 !important;
 }
 
 .flex-8 {
-    -ms-flex: 8 !important;
-    -webkit-flex: 8 !important;
-    flex: 8 !important;
+  -ms-flex: 8 !important;
+  -webkit-flex: 8 !important;
+  flex: 8 !important;
 }
 
 .flex-9 {
-    -ms-flex: 9 !important;
-    -webkit-flex: 9 !important;
-    flex: 9 !important;
+  -ms-flex: 9 !important;
+  -webkit-flex: 9 !important;
+  flex: 9 !important;
 }
 
 .flex-10 {
-    -ms-flex: 10 !important;
-    -webkit-flex: 10 !important;
-    flex: 10 !important;
+  -ms-flex: 10 !important;
+  -webkit-flex: 10 !important;
+  flex: 10 !important;
 }
 
 .flex-11 {
-    -ms-flex: 11 !important;
-    -webkit-flex: 11 !important;
-    flex: 11 !important;
+  -ms-flex: 11 !important;
+  -webkit-flex: 11 !important;
+  flex: 11 !important;
 }
 
 .flex-12 {
-    -ms-flex: 12 !important;
-    -webkit-flex: 12 !important;
-    flex: 12 !important;
+  -ms-flex: 12 !important;
+  -webkit-flex: 12 !important;
+  flex: 12 !important;
 }
 
 /* alignment in cross axis */
@@ -220,6 +220,10 @@
   -ms-align-self: stretch;
   -webkit-align-self: stretch;
   align-self: stretch;
+}
+
+.ml-auto {
+  margin-left: auto;
 }
 
 /*******************************
