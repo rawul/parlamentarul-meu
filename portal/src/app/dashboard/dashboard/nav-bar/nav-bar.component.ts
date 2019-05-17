@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,10 +6,14 @@ import { Component, OnInit, HostListener } from '@angular/core';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-
+  @Output() scrollTo = new EventEmitter<number>();
   constructor() { }
 
   ngOnInit() {
+  }
+
+  scroll(i) {
+    this.scrollTo.next(i);
   }
 
   // @HostListener("window:scroll", [])
