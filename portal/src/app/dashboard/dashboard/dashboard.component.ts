@@ -12,4 +12,18 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  scrollTo(ev) {
+    switch (ev) {
+      case 1: {
+        document.getElementById('panel1').scrollIntoView();
+        break;
+      }
+      case 2: {
+        document.getElementById('panel2').scrollIntoView();
+        break;
+      }
+    }
+
+  }
+
 }

@@ -1,3 +1,112 @@
-<p>
-  dashboard works!
-</p>
+<div class="flex-1 layout vertical">
+  <app-nav-bar (scrollTo)="scrollTo($event)"></app-nav-bar>
+  <div style="height:100vh" class="content-wrapper layout vertical center center-justified">
+    <img class="logo" src="../../../assets/logo-text.png" />
+    <span class="logo-text">"De vrei gustul fericirii, stampileaza trandafirii!"</span>
+    <span class="mt-10-1 logo-text-2">-Nicoale Guta</span>
+  </div>
+  <div class="layout vertical center" id="panel1"
+    style="background-image:url(../../../assets/background.png);height: calc(100vh)">
+    <!-- <span class="brake-line"></span> -->
+    <span style="text-align: center;
+    margin: 80px 10px 10px;
+    /* width: 500px; */
+    font-weight: 300;
+    padding: 5px 10px;
+    /* color: white; */
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;"> Vezi parlamentarii din <strong>judetul</strong> tau:</span>
+    <app-interactive-map style="height: 500px;"></app-interactive-map>
+  </div>
+  <div class="layout vertical center" id="panel2" style="height: calc(100vh - 64px)">
+    <!-- <span class="brake-line"></span> -->
+    <span style="text-align: center;
+    margin: 80px 10px 10px;
+    /* width: 500px; */
+    font-weight: 300;
+    padding: 5px 10px;
+    /* color: white; */
+    background-color: black;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid white;"> Cei mai activi <strong>parlamentari</strong> pe plaforma:</span>
+    <div style="    display: flex;
+    justify-content: space-evenly;
+    flex: 1;
+    flex-wrap: wrap;
+    padding: 10px 60px;">
+      <div class="politician">
+        <div class="politician-content">
+          <div class="image-wrapper">
+            <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg"
+              alt="">
+          </div>
+          <div class="name">Liviu Dragnea</div>
+          <div class="role">Cacanar</div>
+        </div>
+        <div class="footer">
+          <div class="profile-button">Vezi profil</div>
+          <div class="profile-button">Trimite mesaj </div>
+        </div>
+      </div>
+      <div class="politician">
+        <div class="politician-content">
+          <div class="image-wrapper">
+            <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg"
+              alt="">
+          </div>
+          <div class="name">Liviu Dragnea</div>
+          <div class="role">Cacanar</div>
+        </div>
+        <div class="footer">
+          <div class="profile-button">Vezi profil</div>
+          <div class="profile-button">Trimite mesaj </div>
+        </div>
+      </div>
+      <div class="politician">
+        <div class="politician-content">
+          <div class="image-wrapper">
+            <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg"
+              alt="">
+          </div>
+          <div class="name">Liviu Dragnea</div>
+          <div class="role">Cacanar</div>
+        </div>
+        <div class="footer">
+          <div class="profile-button">Vezi profil</div>
+          <div class="profile-button">Trimite mesaj </div>
+        </div>
+      </div>
+      <div class="politician">
+        <div class="politician-content">
+          <div class="image-wrapper">
+            <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg"
+              alt="">
+          </div>
+          <div class="name">Liviu Dragnea</div>
+          <div class="role">Cacanar</div>
+        </div>
+        <div class="footer">
+          <div class="profile-button">Vezi profil</div>
+          <div class="profile-button">Trimite mesaj </div>
+        </div>
+      </div>
+      <div class="politician">
+        <div class="politician-content">
+          <div class="image-wrapper">
+            <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg"
+              alt="">
+          </div>
+          <div class="name">Liviu Dragnea</div>
+          <div class="role">Cacanar</div>
+        </div>
+        <div class="footer">
+          <div class="profile-button">Vezi profil</div>
+          <div class="profile-button">Trimite mesaj </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

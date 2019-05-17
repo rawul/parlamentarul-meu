@@ -13,8 +13,9 @@ app.use(bodyParser.json());
 
 router.use(require(__dirname + "/controllers/UserController"));
 router.use(require(__dirname + "/controllers/DeputyController"));
+router.use(require(__dirname + "/controllers/SenatorController"));
+
 
 app.use('/api/v1', router);
-
 
 module.exports = app;

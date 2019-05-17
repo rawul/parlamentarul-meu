@@ -5,12 +5,19 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const Schema = mongoose.Schema;
 
 let Deputy = new Schema({
-
-  name: {type:String},
-  party: {type:String},
-  address: {type:String},
-  email: {type:String,
-  unique: true}
+  name: {
+    type: String
+  },
+  party: {
+    type: String
+  },
+  address: {
+    type: String
+  },
+  email: {
+    type: String,
+    require: true
+  },
 },{
   collection: 'persons'
 });
