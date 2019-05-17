@@ -1,5 +1,5 @@
 const express = require('express');
-const app = express();
+const app = require(__dirname + "/app.js");
 const bodyParser = require('body-parser');
 const PORT = 4000;
 const cors = require('cors');
