@@ -6,10 +6,9 @@ const User = mongoose.model("User");
 const passport = require('passport');
 require("../config/passport.js");
 
-module.exports.registerUser = function(req, res) {
-    console.log({username: req.body});
-
-    User.register({ username: req.body.username }, req.body.password)
+const UserService = {
+    registerUser: async (req, res) => {
+        User.register({ username: req.body.username }, req.body.password)
       .then(() => {
         passport.authenticate("local")(req, res, function() {
           res.send("registered");
@@ -20,5 +19,8 @@ module.exports.registerUser = function(req, res) {
         res.status(400);
         res.send(err);
       });
-  };
+    }
+}
+
+module.exports = UserService;
   
