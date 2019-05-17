@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const needle = require('needle');
 
-const filename = path.join(__dirname, 'dump/deputati.json');
+const filename = path.join(__dirname, 'dump/deputies.json');
 const url = 'http://www.cdep.ro/pls/parlam/structura2015.de?par=C';
 (async () => {
     const people = [];
@@ -21,5 +21,5 @@ const url = 'http://www.cdep.ro/pls/parlam/structura2015.de?par=C';
         }, [])
 
     fs.writeFileSync(filename, JSON.stringify(people));
-    console.log('Deputati - Done');
+    console.log('Deputies - Done');
 })();

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const needle = require('needle');
 
-const filename = path.join(__dirname, 'dump/senatori.json');
+const filename = path.join(__dirname, 'dump/senators.json');
 const url = 'https://www.senat.ro/FisaSenatori.aspx';
 (async () => {
     const people = [];
@@ -20,5 +20,5 @@ const url = 'https://www.senat.ro/FisaSenatori.aspx';
         }, [])
 
     fs.writeFileSync(filename, JSON.stringify(people));
-    console.log('Senatori - Done');
+    console.log('Senators - Done');
 })();
