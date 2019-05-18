@@ -1,6 +1,4 @@
 const express = require('express');
-const deputyRoutes = express.Router();
-let Deputy = require('../models/DeputyModel');
 const nodemailer = require("nodemailer");
 var smtpTransport = require('nodemailer-smtp-transport');
 
@@ -22,7 +20,14 @@ const MessageService = {
         cc:   req.body.from, 
         subject: req.body.subject,
         text:   req.body.content
-      }).then(em => res.status(200)).catch(err => console.log(err));
+      }).then(
+        em => {
+          res.status(200);
+          res.send("Done");
+        }
+        ).catch(
+          err => console.log(err)
+          );
 
   }
 }
