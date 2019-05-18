@@ -2,10 +2,12 @@ const cheerio = require('cheerio')
 const fs = require('fs');
 const path = require('path');
 const needle = require('needle');
+const removeAccents = require('remove-accents');
 
 const filename = path.join(__dirname, 'dump/deputies.json');
 const domain = 'http://www.cdep.ro';
 const parallelConnections = 100;
+const politicianType = 'deputy';
 
 const getPersonDetails = async ($, row) => {
     const name = $(row).find('td:nth-child(2)').text().replace(/(^[\s\r\t]+|[\s\r\t]+$)/gm, '');
@@ -15,7 +17,7 @@ const getPersonDetails = async ($, row) => {
 
     if (name && party && address) {
         const pictureUrl = await getPersonPicture(`${domain}${$(row).find('a').attr('href')}`);
-        return { name, party, email, address, pictureUrl };
+        return { name, party, email, address, pictureUrl, politicianType };
     }
     return [];
 }
@@ -59,7 +61,7 @@ const getPeopleCountyMatch = async () => {
         .find('tr')
         .each((i, row) => {
             const name = $(row).find('td').eq(1).text()
-            const county = $(row).find('td').eq(2).text().toLowerCase().replace(/^\d+\s+\/\s+|\s/gm, '') || null;
+            const county = removeAccents($(row).find('td').eq(2).text().toLowerCase().replace(/^\d+\s+\/\s+|\s/gm, '')) || null;
             if (name) {
                 people.push({ name, county })
             }

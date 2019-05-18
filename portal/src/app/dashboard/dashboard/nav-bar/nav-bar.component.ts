@@ -1,6 +1,9 @@
 import { Component, OnInit, HostListener, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LoginModalComponent } from '../login-modal/login-modal.component';
+import { DashboardService } from '../../dashboard.service';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,11 +12,18 @@ import { LoginModalComponent } from '../login-modal/login-modal.component';
 })
 export class NavBarComponent implements OnInit {
   @Output() scrollTo = new EventEmitter<number>();
+  isLoggedIn: boolean = false;
+  faUser = faUser;
+  faSortDown = faSortDown;
   constructor(
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private service: DashboardService
   ) { }
 
   ngOnInit() {
+    if (this.service.getUser()) {
+      this.isLoggedIn = true;
+    }
   }
 
   scroll(i) {

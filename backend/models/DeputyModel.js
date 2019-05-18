@@ -14,6 +14,12 @@ let Deputy = new Schema({
   address: {
     type: String
   },
+  county: {
+    type: String
+  },
+  pictureUrl: {
+    type: String
+  },
   email: {
     type: String,
     require: true

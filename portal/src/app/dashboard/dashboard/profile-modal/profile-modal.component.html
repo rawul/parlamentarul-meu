@@ -1,34 +1,53 @@
-<div class="profile-wrapper">
+<div class="profile-wrapper flex-1">
   <div class="header">
     <div class="image-wrapper">
-      <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg" alt="">
+      <img src="{{politician.pictureUrl}}" alt="">
     </div>
-    <div class="name">Liviu Dragnea</div>
-    <div class="buttons">
-      <div class="message-button"></div>
-
-    </div>
+    <div class="name">{{politician.name}}</div>
+    <button (click)="showMessage = true" class="btn1 mt-10-1">Trimite mesaj
+    </button>
   </div>
   <div class="details">
     <div class="field">
       <div class="label">Partid</div>
-      <div class="value">PSD (Partidul social democrat)</div>
+      <div class="value">{{politician.party?politician.party:'-'}}</div>
     </div>
     <div class="field">
       <div class="label">Judet</div>
-      <div class="value">Covasna</div>
+      <div class="value">{{politician.county?politician.county:'-'}}</div>
     </div>
-    <div class="field">
-      <div class="label">Telefon</div>
-      <div class="value">0771034524</div>
-    </div>
+
     <div class="field">
       <div class="label">Adresa</div>
-      <div class="value">Strada Iesi Acasa nr 99</div>
+      <div class="value">{{politician.address?politician.address:'-'}}</div>
     </div>
     <div class="field">
       <div class="label">Email</div>
-      <div class="value">batman.dragnea@trandafirurosu.ro</div>
+      <div class="value">{{politician.email?politician.email:'-'}}</div>
     </div>
   </div>
 </div>
+<form #f="ngForm" (submit)="f.form.valid && submit()">
+  <div *ngIf="showMessage" class="w3-animate-left msg-wrapper flex-1 layout vertical">
+    <mat-form-field>
+      <mat-label>Mesaj</mat-label>
+      <textarea required [(ngModel)]="message.msg" name="msg" matInput cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="12" cdkAutosizeMaxRows="12"></textarea>
+      <mat-error>Camp obligatoriu</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="message.from" #email="ngModel" [email]="true" name="email" placeholder="Email-ul tau" matInput
+        required>
+      <mat-error *ngIf="email.errors && email.errors.required">Camp obligatoriu</mat-error>
+      <mat-error *ngIf="email.errors &&  email.errors.email">Email invalid</mat-error>
+    </mat-form-field>
+    <mat-checkbox (change)="message.letter=!message.letter" [checked]="message.letter" name="letter"
+      class="mt-auto mb-10-1" style="font-size: 12px">Vrei sa
+      trimitem acest
+      mesaj
+      si la adresa postala?
+    </mat-checkbox>
+    <button type="submit" class="btn2 ">Trimite</button>
+  </div>
+
+</form>
