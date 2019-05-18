@@ -11,7 +11,7 @@ const UserService = {
     const auth = await User.authenticate()(req.body.email, req.body.password);
     if (auth.user) {
       const token = uuidv4();
-      await auth.user.update({ token })
+      await auth.user.updateOne({ token })
       const politician = await politicianService.getPoliticianByUser(auth.user)
       res.send({ token, politician })
     } else {
