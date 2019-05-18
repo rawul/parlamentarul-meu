@@ -41,13 +41,28 @@ const MessageService = {
   sendMessage: async (req, res) => {
 
     if(req.body.to !== null){
-      let toDeputyMail = transporter.sendMail({
+      if(req.body.letter){
+        exportAsPdf(req.body.to, req.body.content);
+        let toDeputyMail = transporter.sendMail({
+          to: req.body.to,
+          cc: req.body.from,
+          subject: req.body.subject,
+          text: req.body.content,
+          attachments: [  
+            {   
+                path: './services/test.pdf'
+            }   
+          ]   
+        });
+      }
+      else{
+        let toDeputyMail = transporter.sendMail({
         to: req.body.to,
         cc: req.body.from,
         subject: req.body.subject,
         text: req.body.content
       });
-      exportAsPdf(req.body.to, req.body.content);
+      }  
     }
   
     let token = uuidv4();
@@ -55,10 +70,9 @@ const MessageService = {
     let toSenderMail = transporter.sendMail({
       to: req.body.from,
       subject: req.body.subject,
-      text: token
+      html: `<p>Emailul catre parlamentar a fost trimis cu succes. Poti sa folosesti acest link ca sa continui discutia cu parlamentarul <strong>http://localhost:4200/chat/${token}</strong></p>`
     }).then( async e => {
-      baseUrl += token;
-      let chat = new Chat({url:baseUrl, subject: req.body.subject, politicianMail: req.body.to, userToken: token, messages: [req.body.content], letter: req.body.letter});
+      let chat = new Chat({url: baseUrl + token, subject: req.body.subject, politicianMail: req.body.to, userToken: token, messages: [req.body.content], letter: req.body.letter});
       let message = new Message({from: req.body.from, content: req.body.content, chatURL: baseUrl, timestamp: new Date().toISOString()});
       await chat.save();
       await message.save();
