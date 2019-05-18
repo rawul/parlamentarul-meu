@@ -3,6 +3,9 @@ const nodemailer = require("nodemailer");
 var smtpTransport = require('nodemailer-smtp-transport');
 const uuidv4 = require('uuidv4');
 
+const fs = require('fs');
+const pdf = require('html-pdf');
+
 
 let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
@@ -64,6 +67,15 @@ const MessageService = {
       console.log(err);
       res.status(400).json({ message: 'Error retrieving chats' });
     }
+  },
+  exportAsPdf: (req, res) => {
+    const html = fs.readFileSync(req.body.url, 'utf8');
+    const options = { format: 'Letter' };
+
+    pdf.create(html, options).toFile('./services/test.pdf', (err, res) => {
+      if (err) return console.log(err);
+        console.log(res);
+    });
   }
 }
 
