@@ -36,9 +36,9 @@ const DeputyService = {
       } else { res.send(deputy); }
     });
   },
-  getDeputyByParty: async (req, res) => {
-    var p = req.params.party;
-    Deputy.findOne({ party: p }, (error, deputy) => {
+  getDeputiesByParty: async (req, res) => {
+    var p = req.query.party;
+    Deputy.find({ party: p }, (error, deputy) => {
       if (error) {
         console.log(error);
         res.status(400);
