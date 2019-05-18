@@ -42,7 +42,7 @@ const MessageService = {
       text: token
     }).then( async e => {
       baseUrl += token;
-      let chat = new Chat({url:baseUrl, subject: req.body.subject, politicianMail: req.body.to, userToken: token, messages: [req.body.content]});
+      let chat = new Chat({url:baseUrl, subject: req.body.subject, politicianMail: req.body.to, userToken: token, messages: [req.body.content], letter: req.body.letter});
       let message = new Message({from: req.body.from, content: req.body.content, chatURL: baseUrl, timestamp: new Date().toISOString()});
       await chat.save();
       await message.save();
