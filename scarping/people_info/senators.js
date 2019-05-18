@@ -8,6 +8,7 @@ const filename = path.join(__dirname, 'dump/senators.json');
 
 const domain = 'https://www.senat.ro/';
 const parallelConnections = 10;
+const politicianType = 'senator';
 
 const getPersonPicture = async (personLink) => {
     console.log('getting picture for', personLink);
@@ -24,7 +25,7 @@ const getPersonDetails = async ($, row) => {
     const county = removeAccents(district.replace(/Circumscripţia electorală nr\.\d+\s|\selectoral.*?$/gm, '').toLowerCase());
     if (district && party && name && county) {
         const pictureUrl = await getPersonPicture(`${domain}${$(row).find('a').attr('onclick').replace(/window\.open\("|\"\);/g, '')}`);
-        return { name, party, district, county, pictureUrl };
+        return { name, party, district, county, pictureUrl, politicianType };
     }
     return [];
 }
