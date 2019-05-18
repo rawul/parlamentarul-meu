@@ -58,6 +58,16 @@ const ChatService = {
         });
       }
     }
+  },
+  getChatByToken: async (req, res) => {
+    const token = req.params.token;
+    try {
+    let chat = await Chat.findOne({userToken: token}).lean().exec();
+    res.status(200).json(chat);
+    }catch(err) {
+      console.log(err);
+      res.status(404).json();
+    }
   }
 }
 
