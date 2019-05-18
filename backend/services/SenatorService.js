@@ -37,7 +37,7 @@ const SenatorService = {
   },
 
   getByParty: async (req, res) => {
-    let party = req.params.party;
+    let party = req.query.party;
     Senator.find({ party: party}, (err, senators) => {
     if(err)
       console.log(err);
@@ -47,7 +47,7 @@ const SenatorService = {
   },
 
   getByDistrict: async (req, res) => {
-    let district = req.params.district;
+    let district = req.query.district;
     Senator.find({ district: district}, (err, senators) => {
     if(err)
       console.log(err);
