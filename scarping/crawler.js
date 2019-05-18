@@ -3,14 +3,19 @@ const fs = require('fs');
 const path = require('path');
 const needle = require('needle');
 const removeAccents = require('remove-accents');
-const { normalizeName, subsetsOf2, hash } = require('./utils');
+const MongoClient = require('mongodb').MongoClient;
+const URI = require('urijs');
+const { normalizeName, subsetsOf2, hash, isURLValid, isNamedInculded } = require('./utils');
 
-const url = 'https://www.hotnews.ro/';
+let db = null;
+
+const url = (process.argv.length && process.argv[2] && new URI(process.argv.length && process.argv[2]))
+    || new URI('https://www.hotnews.ro/');
 
 const visitedLinksMap = new Map();
 
 const politicians =
-    [...require('./people_info/dump/deputies.json'), ...require('./people_info/dump/deputies.json')]
+    [...require('./people_info/dump/deputies.json'), ...require('./people_info/dump/senators.json')]
         .map(p => ({
             name: p.name,
             normalizedName: normalizeName(p.name),
@@ -20,38 +25,58 @@ const politicians =
 const articles = [];
 
 const isPoliticianInString = (str) => {
-    return politicians.find(p => (str.includes(p.normalizedName) || (p.subsets.find(subset => str.includes(subset)) && p))) || null
+    return politicians.find(p => (isNamedInculded(str, p.normalizedName) || (p.subsets.find(subset => isNamedInculded(str, subset)) && p))) || null
+}
+
+const isVisited = async (link) => {
+    const found = await db.collection('visited_urls').findOne({ link: link.toString() });
+    return found;
 }
 
 const checkLink = async (link) => {
-    const response = await needle('GET', link);
-    const $ = cheerio.load(response.body);
-    const title = $('[property="og:title"]').attr('content');
-    if (title) {
-        const normalizedTitle = removeAccents(title).toLowerCase();
-        const politician = isPoliticianInString(normalizedTitle);
-        console.log({ normalizedTitle, politician })
-        if (politician) {
-            console.log({ normalizedTitle, politician })
+    console.log('\x1b[33m scraping ', link.toString());
+    try {
+        const response = await needle('GET', link.toString());
+        const $ = cheerio.load(response.body);
+        const title = $('[property="og:title"]').attr('content');
+
+        await db.collection('visited_urls').insertOne({ link: link.toString() })
+        if (title) {
+            const normalizedTitle = removeAccents(title).toLowerCase();
+            const politician = isPoliticianInString(normalizedTitle);
+            if (politician) {
+                console.log('\x1b[32m found', politician.name)
+                db.collection('articles').insertOne({ link, title, politician })
+                articles.push({ link, title, politician })
+            } else {
+                console.log('\x1b[31m not found')
+            }
         }
+        const pageLinks = $('a')
+            .map(function () {
+                try {
+                    return URI($(this).attr('href'), url).toString();
+                } catch {
+                    return null;
+                }
+            })
+            .get()
+            .filter(link => link !== null && isURLValid(url, URI(link)))
+        // console.log(url);
+        for (let link of pageLinks) {
+            if (!await isVisited(link)) {
+                await checkLink(link)
+            }
+        }
+    } catch (e) {
+        console.log('\x1b[31m [SOME ERROR OCCURED] ... skipping', e);
     }
 }
 
-// console.log(subsetsOf2(['dragnea', 'nicolae', 'liviu']).toArray());
-// const p = politicians.find(t => t.normalizedName.includes('dragnea'));
-// const title = removeAccents('Iohannis, despre protestatarii ridicați de jandarmi la Topoloveni: Cred că aici avem imaginea Rom&acirc;niei lui Dragnea. Cine nu e cu Liviu Dragnea va fi arestat!').toLowerCase();
-
-// console.log(p.subsets.find(subset => title.includes(subset)));
-
-checkLink('https://www.hotnews.ro/stiri-esential-23148949-iohannis-despre-protestatarii-ridicati-jandarmi-topoloveni-cred-aici-avem-imaginea-romaniei-lui-dragnea-cine-nu-liviu-dragnea-arestat.htm');
-// (async () => {
-//     const response = await needle('GET', 'https://www.hotnews.ro/');
-//     const $ = cheerio.load(response.body);
-//     const pageLinks = $('a')
-//         .map(function () { return $(this).attr('href') })
-//         .get()
-//         .filter(link => !visitedLinksMap.get(hash(link)))
-//         .forEach(link => {
-//             checkLink(link)
-//         });
-// })();
+(async () => {
+    const client = await MongoClient.connect('mongodb://localhost:27017/unihack', { useNewUrlParser: true });
+    db = client.db();
+    // const t = URI('ew/ewq', url);
+    // console.log({ t: t.domain(), f: isURLValid(url, t) })
+    checkLink(url);
+})();

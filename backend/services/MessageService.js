@@ -27,12 +27,16 @@ let baseUrl = "localhost:4000/api/v1/chat/"
 
 const MessageService = {
   sendMessage: async (req, res) => {
+
+  if(req.body.to !== null){
     let toDeputyMail = transporter.sendMail({
       to: req.body.to,
       cc: req.body.from,
       subject: req.body.subject,
       text: req.body.content
     });
+  }
+    
     let token = uuidv4();
 
     let toSenderMail = transporter.sendMail({
