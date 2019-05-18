@@ -63,6 +63,8 @@ const ChatService = {
     const token = req.params.token;
     try {
     let chat = await Chat.findOne({userToken: token}).lean().exec();
+    let messages = await Message.find({chatURL: chat.url}).lean().exec();
+    chat.messages = messages;
     res.status(200).json(chat);
     }catch(err) {
       console.log(err);
