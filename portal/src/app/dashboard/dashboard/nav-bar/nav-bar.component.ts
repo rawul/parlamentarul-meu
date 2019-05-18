@@ -15,14 +15,18 @@ export class NavBarComponent implements OnInit {
   isLoggedIn: boolean = false;
   faUser = faUser;
   faSortDown = faSortDown;
+  pictureUrl: string = 'https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg';
   constructor(
     private dialog: MatDialog,
     private service: DashboardService
   ) { }
 
   ngOnInit() {
-    if (this.service.getUser()) {
+    if (this.service.getToken()) {
       this.isLoggedIn = true;
+    }
+    if (localStorage.getItem('politician')) {
+      this.pictureUrl = (JSON.parse(localStorage.getItem('politician'))).pictureUrl;
     }
   }
 
@@ -31,7 +35,20 @@ export class NavBarComponent implements OnInit {
   }
 
   showLoginModal() {
-    this.dialog.open(LoginModalComponent);
+    let dialogRef = this.dialog.open(LoginModalComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        if (this.service.getToken())
+          this.isLoggedIn = true;
+        this.pictureUrl = (JSON.parse(localStorage.getItem('politician'))).pictureUrl;
+      }
+      if (this.service.getToken())
+        this.isLoggedIn = true;
+    })
+  }
+  logout() {
+    localStorage.clear();
+    this.isLoggedIn = false;
   }
 
   // @HostListener("window:scroll", [])
