@@ -11,8 +11,8 @@ export class DashboardService {
     private http: HttpClient
   ) { }
 
-  getUser(): string {
-    return localStorage.getItem('user');
+  getToken(): string {
+    return localStorage.getItem('token');
   }
 
   getAllByCounty(county: string) {
