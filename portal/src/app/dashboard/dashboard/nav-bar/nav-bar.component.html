@@ -2,7 +2,7 @@
   <button (click)="scroll(1)" class="btn1 mr-10-1">Harta Interactiva</button>
   <button (click)="scroll(2)" class="btn1">Parlamentari</button>
   <button (click)="showLoginModal()" class="btn2 ml-auto" *ngIf="!isLoggedIn">Login</button>
-  <div class="ml-auto user-button" [matMenuTriggerFor]="appMenu" *ngIf="isLoggedIn" routerLink="/politicians/profile">
+  <div class="ml-auto user-button"  *ngIf="isLoggedIn" routerLink="/politicians/profile">
       <img src="" alt="">
     <fa-icon [icon]="faUser" class="fa-lg"></fa-icon>
   </div>
