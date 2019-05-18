@@ -4,23 +4,24 @@
     style="background-image:url(../../../../assets/background.png);height: 250px;width: 100%;background-position-y: -900px;">
 
     <div class="img-wrapper">
-      <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg" alt="">
+      <img src="{{politician.pictureUrl}}" alt="">
     </div>
   </div>
   <div class="layout horizontal" style="    background-image: linear-gradient(to right,transparent,#2a29295c);
   height: 80px;
   margin-top: -80px;
   margin-left: 330px; align-items: center;padding:0px 10px;">
-    <div class="name">Liviu Dragnea - <span style="font-weight: 200">livu.das@asdj.com</span></div>
-    <div class="ml-auto position">Deputat <strong>USR</strong> Timis</div>
+    <div class="name">{{politician.name}} - <span style="font-weight: 200">{{politician.email}}</span></div>
+    <div class="ml-auto position">{{politician.politicianType === 'deputy'? 'Deputat':'Senator'}} <strong>{{politician.party}}</strong>
+      {{politician.county}}</div>
   </div>
   <div class="layout horizontal" style="color:white;    background-color: black;
   height: 80px;
   align-items: center;
   padding: 0px 10px;">
-    <div class="name">Str. Calea Bogdanestilor nr. 110</div>
+    <div class="name">{{politician.address}}</div>
   </div>
-  <div >
+  <div>
     <span style="    font-weight: 300;
     /* color: white; */
     text-transform: uppercase;
