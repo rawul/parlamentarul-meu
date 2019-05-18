@@ -13,6 +13,6 @@ Senator.collection.drop();
     Deputy.collection.insertMany(require('../scarping/people_info/dump/deputies'));
     const testUser = await Deputy.collection.insertOne({ "name": "Emilut", "party": "PNL", "email": "test@test.test", "address": "Alba Iulia, Str. Basarabiei nr. 3, jud. Alba", "pictureUrl": "http://www.landia.ro/wp-content/uploads/2018/01/emilut.jpg", "politicianType": "deputy", "county": "alba" })
 
-    User.register({ username: 'test', email: 'test@test.test', token: '123', politicianId: testUser.insertedId }, '123');
+    User.register({ username: 'test', email: 'raulgherasim@gmail.com', token: '123', politicianId: testUser.insertedId }, '123');
     console.log()
 })()
