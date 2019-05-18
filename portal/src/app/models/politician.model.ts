@@ -9,7 +9,7 @@ export class Politician {
         public party: string,
         public email: string,
         public address: string,
-        public url: string,
+        public imageUrl: string,
         public county: string,
         public politicianType: PoliticianType
     ) { }

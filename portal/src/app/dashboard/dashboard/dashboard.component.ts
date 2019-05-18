@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileModalComponent } from './profile-modal/profile-modal.component';
+import { Politician } from 'src/app/models/politician.model';
+import { DashboardService } from '../dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,10 +10,20 @@ import { ProfileModalComponent } from './profile-modal/profile-modal.component';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  judet = '';
+  politicians: Politician[] = [];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private dashService: DashboardService) { }
 
   ngOnInit() {
+
+  }
+
+  loadPoliticians($event) {
+    this.politicians = $event;
+    console.log(this.politicians);
+    this.judet = this.politicians[0].county;
+    document.getElementById('panel2').scrollIntoView();
   }
 
   scrollTo(ev) {
@@ -29,7 +41,6 @@ export class DashboardComponent implements OnInit {
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(ProfileModalComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });

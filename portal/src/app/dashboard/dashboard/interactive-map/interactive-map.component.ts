@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { DashboardService } from '../../dashboard.service';
+import { Politician } from 'src/app/models/politician.model';
 
 @Component({
   selector: 'app-interactive-map',
@@ -7,13 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InteractiveMapComponent implements OnInit {
 
-  constructor() { }
+  @Output() politicians = new EventEmitter<any>();
+
+  constructor(
+    private dashService: DashboardService
+  ) { }
 
   ngOnInit() {
   }
 
   judetClicked(ev) {
-    console.log(ev.target.attributes['name'].value);
+    this.dashService.getAllByCounty(ev.target.attributes['name'].value).subscribe(x => {
+      this.politicians.next(x);
+    }, err => {
+      console.log(err);
+    });
   }
 
 }

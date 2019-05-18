@@ -11,6 +11,7 @@ import { LoginModalComponent } from './dashboard/login-modal/login-modal.compone
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginService } from './dashboard/login.service';
+import { DashboardService } from './dashboard.service';
 import { ProfileModalComponent } from './dashboard/profile-modal/profile-modal.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 @NgModule({
@@ -29,6 +30,6 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     FontAwesomeModule
   ],
   entryComponents: [LoginModalComponent, ProfileModalComponent],
-  providers: [LoginService]
+  providers: [LoginService, DashboardService]
 })
 export class DashboardModule { }
