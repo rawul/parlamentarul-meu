@@ -1,43 +1,18 @@
 const mongoose = require("mongoose");
-
-require("../models/UserModel");
-
-const User = mongoose.model("User");
+const uuidv4 = require('uuidv4')
+const User = require("../models/UserModel");
 const passport = require('passport');
-require("../config/passport.js");
 
 const UserService = {
-    registerUser: async (req, res) => {
-        User.register({ username: req.body.username }, req.body.password)
-      .then(() => {
-        passport.authenticate("local")(req, res, function() {
-          res.send("registered");
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(400);
-        res.send(err);
-      });
-    },
-    loginUser: async(req, res) => {
-        const user = new User({
-            username: req.body.username,
-            password: req.body.password
-          });
-          req.logIn(user, function(err) {
-            if (err) {
-              console.log(err);
-              res.status(400);
-              res.send(err);
-            } else {
-              passport.authenticate("local")(req, res, function() {
-                res.send("login with success");
-              });
-            }
-          });
+  loginUser: async (req, res) => {
+    const auth = await User.authenticate()(req.body.email, req.body.password);
+    if (auth.user) {
+      auth.user.token = uuidv4();
+      await auth.user.save();
+      res.send({ token: auth.user.token })
+    } else {
+      res.status(403).json({ message: 'Wrong username or password' })
     }
+  }
 }
-
 module.exports = UserService;
-  
