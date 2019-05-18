@@ -7,7 +7,7 @@
     <button (click)="showMessage = true" class="btn1 mt-10-1">Trimite mesaj
     </button>
   </div>
-  <div class="details">
+  <div class="details flex-1">
     <div class="field">
       <div class="label">Partid</div>
       <div class="value">{{politician.party?politician.party:'-'}}</div>
@@ -41,13 +41,21 @@
       <mat-error *ngIf="email.errors && email.errors.required">Camp obligatoriu</mat-error>
       <mat-error *ngIf="email.errors &&  email.errors.email">Email invalid</mat-error>
     </mat-form-field>
-    <mat-checkbox (change)="message.letter=!message.letter" [checked]="message.letter" name="letter"
-      class="mt-auto mb-10-1" style="font-size: 12px">Vrei sa
+    <mat-checkbox (change)="message.letter=!message.letter" [disabled]="politician.email? false:true"
+      [checked]="message.email? message.letter:true" name="letter" class="mt-auto mb-10-1" style="font-size: 12px">Vrei
+      sa
       trimitem acest
       mesaj
       si la adresa postala?
     </mat-checkbox>
-    <button type="submit" class="btn2 ">Trimite</button>
+    <span style="font-size: 12px;
+    background: #ffb0b0;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 13px;" *ngIf="!politician.email">Acest parlamentar nu are adresa de email. Singura posibilitate prin
+      care poate fi
+      contactat este prin scrisoare. </span>
+    <button type="submit" class="btn2">Trimite</button>
   </div>
 
 </form>
