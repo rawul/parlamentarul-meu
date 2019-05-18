@@ -5,8 +5,11 @@ const bodyParser = require("body-parser");
 const app = express();
 const session = require("express-session");
 const passport = require("passport");
+const cors = require('cors');
 require('./migrate');
 
+app.options('*', cors())
+app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());
 
