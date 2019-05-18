@@ -114,14 +114,24 @@
 }
 
 
-/deep/ .mat-dialog-container{
+/deep/ .mat-dialog-container {
   padding: 0 !important;
 }
 
-.see-all{
+.see-all {
   cursor: pointer;
+
+  &:hover {
+    background-color: #ffad00 !important;
+    border: none;
+    color: white;
+  }
 }
-#search-input{
+
+#search-input {
+  margin: 10px 0px;
+  outline: none;
+  padding: 10px;
   height: 30px;
   width: 200px;
   border-radius: 5px;
