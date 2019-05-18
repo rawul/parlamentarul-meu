@@ -19,6 +19,7 @@
     "install": "^0.12.2",
     "mongoose": "^5.5.9",
     "mongoose-findorcreate": "^3.0.0",
+    "mongoose-paginate": "^5.0.3",
     "nodemailer": "^6.1.1",
     "nodemailer-smtp-transport": "^2.7.4",
     "npm": "^6.9.0",

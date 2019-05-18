@@ -1,8 +1,9 @@
 const router = require("express").Router();
 
-const politicanService = require("../services/PoliticianService");
+const politicianService = require("../services/PoliticianService");
 
-router.get("/politician", politicanService.getPoliticians);
-router.get("/politician/:county", politicanService.getPoliticiansByCounty);
+router.get("/politician", politicianService.getPoliticians);
+router.get("/politician/:county", politicianService.getPoliticiansByCounty);
+router.get("/politicians", politicianService.getPoliticiansByName);
 
 module.exports = router;

@@ -28,6 +28,17 @@ const PoliticianService = {
       res.status(400).json({ message: 'There has been an error' })
     }
   },
+  getPoliticiansByName: async (req, res) => {
+    const name = req.query.name;
+    try {
+      console.log(req.query);
+      const deputies = await Deputy.find({ name : new RegExp(name, "i") }).lean().exec();
+      const senators = await Senator.find({ name : new RegExp(name, "i") }).lean().exec();
+      res.json([...deputies, ...senators]);
+    } catch (err) {
+      res.status(400).json({ message: 'Error when retrieving politicians by name' })
+    }
+  }
 }
 
 module.exports = PoliticianService;
