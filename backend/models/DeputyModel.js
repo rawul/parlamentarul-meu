@@ -23,9 +23,37 @@ let Deputy = new Schema({
   email: {
     type: String,
     require: true
+  },
+  luariDeCuvant: {
+    total: {
+      type: Number
     },
-},{
-  collection: 'deputies'
-});
+    sedinte: {
+      type: Number
+    }
+  },
+  motiuni: {
+    type: Number
+  },
+  declaratiiPolitice: {
+    type: Number
+  },
+  propuneriLegislative: {
+    total: {
+      type: Number
+    },
+    promulgate: {
+      type: Number
+    }
+  },
+  intrebariSiInterpelari: {
+    type: Number
+  },
+  propuneriDeHotarare: {
+    type: Number
+  }
+}, {
+    collection: 'deputies'
+  });
 
 module.exports = mongoose.model('Deputy', Deputy);
