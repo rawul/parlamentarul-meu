@@ -9,6 +9,7 @@ import { interval } from 'rxjs'
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
+  interval : any;
   politician: any;
   currentMessage: string;
   chats: any;
@@ -48,10 +49,9 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     this.politician = JSON.parse(localStorage.getItem('politician'));
 
-    interval(1000).subscribe(x => {
+    this.interval = interval(1000).subscribe(x => {
       this.service.getChats(this.politician.email).subscribe((chats: any) => {
         this.chats = chats;
-        console.log(chats);
       })
     })
     this.route.params.subscribe((element) => {
@@ -71,7 +71,7 @@ export class ChatComponent implements OnInit {
   sendMessage() {
     console.log(this.currentMessage)
     if (this.currentMessage) {
-      this.service.postMessage(this.currentMessage, this.chats[this.activeChat].userToken).subscribe(element => {
+      this.service.postMessage(this.currentMessage, this.chats[this.activeChat].userToken, this.politician.email).subscribe(element => {
         console.log(element);
         this.service.getChats(this.politician.email).subscribe((chats: any) => {
           this.chats = chats;
@@ -84,5 +84,8 @@ export class ChatComponent implements OnInit {
       })
       this.currentMessage = ''
     }
+  }
+  ngOnDestroy() {
+    this.interval.unsubscribe();
   }
 }

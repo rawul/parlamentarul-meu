@@ -6,6 +6,7 @@ const fs = require('fs');
 const pdf = require('html-pdf');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const filter = require('./SpamFilter')
 
 let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
@@ -31,6 +32,7 @@ function exportAsPdf (mail, message) {
   });
   });
 }
+
 
 const Message = require('../models/MessageModel');
 const Chat = require('../models/ChatModel');
@@ -68,13 +70,23 @@ const MessageService = {
     let toSenderMail = transporter.sendMail({
       to: req.body.from,
       subject: req.body.subject,
-      html: `<p>Email-ul catre parlamentar a fost trimis cu success. Intra pe urmatorul link daca doresti sa continui discutia cu parlamentarul: <strong>http://localhost:4200/api/v1/chat/${token}</strong></p>`
+      html: `<p>Email-ul catre parlamentar a fost trimis cu success. Intra pe urmatorul link daca doresti sa continui discutia cu parlamentarul: <strong>http://localhost:4200/chat/${token}</strong></p>`
     }).then(async e => {
       let chat = new Chat({ url: token, subject: req.body.subject, politicianMail: req.body.to, userToken: token, messages: [req.body.content], letter: req.body.letter });
-      let message = new Message({ from: req.body.from, content: req.body.content, chatURL: token, timestamp: new Date().toISOString() });
-      await chat.save();
-      await message.save();
-      res.status(200).json()
+      if(filter.isSpam(req.body.content)){
+        let spamMail = transporter.sendMail({
+          to: req.body.from,
+          subject: "Mesaj netrimis",
+          html: `<p>Mesajul dumneavoastra a fost considerat ca fiind neadecvat. Astfel, nu a fost trimis parlamentarului.</p>`,
+        });
+        res.status(200).json();
+      }
+      else {
+        let message = new Message({ from: req.body.from, content: req.body.content, chatURL: token, timestamp: new Date().toISOString() });
+        await chat.save();
+        await message.save();
+        res.status(200).json()
+      }  
     }).catch(
       err => console.log(err)
     );
@@ -83,12 +95,10 @@ const MessageService = {
     const politicianEmail = req.query.email;
     try {
       const chats = await Chat.find({ politicianMail: politicianEmail }).lean().exec();
-      console.log({ chats })
       for (var i = 0; i < chats.length; i++) {
         try {
           const messages = await Message.find({ chatURL: chats[i].url }).lean().exec();
           chats[i].messages = messages;
-          console.log({ messages, i })
         } catch (err) {
           res.status(400).json({ message: "Message could not be retrieved" });
         }

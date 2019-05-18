@@ -52,6 +52,7 @@ const SenatorService = {
     }
   },
   getByDistrict: async (req, res) => {
+    console.log(req.query.district);
     let district = req.query.district;
     const page = req.query.page;
     const size = req.query.size;

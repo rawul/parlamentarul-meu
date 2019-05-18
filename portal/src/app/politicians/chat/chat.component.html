@@ -48,7 +48,7 @@
                           'clicked-inc': !message.myMessage && message.showDate,
                           'clicked-out': message.myMessage && message.showDate
                         }" style=" width: fit-content; "
-          *ngFor="let message of chats[activeChat].messages; let messageIndex = index" (click)="showDate(i)">
+          *ngFor="let message of chats[activeChat].messages; let i = index" (click)="showDate(i)">
           <span class="text">{{message.content}}</span>
           <span class="date" *ngIf="message.showDate">10.10.2017 18:12</span>
         </div>

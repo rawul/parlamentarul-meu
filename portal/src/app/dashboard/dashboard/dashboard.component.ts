@@ -24,6 +24,7 @@ import { trigger, transition, animate, style } from '@angular/animations'
 })
 export class DashboardComponent implements OnInit {
   judet = '';
+  searchText: string;
   politicians: Politician[] = [
     new Politician('bob', 'asd', 'usr', 'asda@asd.com', 'bogdanestilor nr 1230', 'omg', 'timis', PoliticianType.deputy)
   ];
@@ -31,13 +32,21 @@ export class DashboardComponent implements OnInit {
   constructor(public dialog: MatDialog, private dashService: DashboardService) { }
 
   ngOnInit() {
-
+    this.dashService.getAll().subscribe((x: any) => {
+      this.politicians = x;
+    })
   }
 
   loadPoliticians($event) {
     this.politicians = $event;
     console.log(this.politicians);
     this.judet = this.politicians[0].county;
+    document.getElementById('panel2').scrollIntoView();
+  }
+  seeAll() {
+    this.dashService.getAll().subscribe((x: any) => {
+      this.politicians = x;
+    })
     document.getElementById('panel2').scrollIntoView();
   }
 
@@ -68,5 +77,9 @@ export class DashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
-
+  search() {
+    this.dashService.getSearch(this.searchText).subscribe((x: any) => {
+      this.politicians = x;
+    })
+  }
 }

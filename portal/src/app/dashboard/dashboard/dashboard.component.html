@@ -18,6 +18,15 @@
     border-radius: 5px;
     border: 1px solid black;"> Vezi parlamentarii din <strong>judetul</strong> tau:</span>
     <app-interactive-map (politicians)="loadPoliticians($event)" style="height: 500px;"></app-interactive-map>
+    <span style="text-align: center;
+    margin: 80px 10px 10px;
+    /* width: 500px; */
+    font-weight: 300;
+    padding: 5px 10px;
+    /* color: white; */
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;" class="see-all" (click)="seeAll()"> Vezi toti parlamentarii</span>
   </div>
   <div class="layout vertical center" id="panel2" style="height: calc(100vh - 64px)">
     <!-- <span class="brake-line"></span> -->
@@ -42,6 +51,7 @@
      color: white;
      border: 1px solid white;"> Parlamentari din judetul <strong
         style="text-transform: capitalize">{{judet}}</strong>:</span>
+    <input type="text" id="search-input" placeholder="Cauta parlamentar..." [(ngModel)]="searchText" (keyup)="search()">
     <div style="    display: flex;
     justify-content: space-evenly;
     flex: 1;

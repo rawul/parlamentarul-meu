@@ -11,8 +11,6 @@ const PoliticianService = {
   },
   getPoliticians: async (req, res) => {
     try {
-      const page = req.query.page;
-      const size = req.query.size;
       const deputies = await Deputy.find({}).lean().exec();
       const senators = await Senator.find({}).lean().exec();
       res.json([...deputies, ...senators]);

@@ -25,7 +25,7 @@ const getPersonDetails = async ($, row) => {
     const county = removeAccents(district.replace(/Circumscripţia electorală nr\.\d+\s|\selectoral.*?$/gm, '').toLowerCase());
     if (district && party && name && county) {
         const pictureUrl = await getPersonPicture(`${domain}${$(row).find('a').attr('onclick').replace(/window\.open\("|\"\);/g, '')}`);
-        return { name, party, district, county, pictureUrl, politicianType };
+        return { name, party, district, county, pictureUrl, politicianType, normalizedName: removeAccents(name).toLowerCase() };
     }
     return [];
 }
