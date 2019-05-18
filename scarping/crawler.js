@@ -5,7 +5,7 @@ const needle = require('needle');
 const removeAccents = require('remove-accents');
 const MongoClient = require('mongodb').MongoClient;
 const URI = require('urijs');
-const { normalizeName, subsetsOf2, hash, isURLValid, isNamedInculded } = require('./utils');
+const { normalizeName, calculatePoliticianTitleMatchScore, hash, isURLValid, isNamedInculded } = require('./utils');
 
 let db = null;
 
@@ -19,13 +19,20 @@ const politicians =
         .map(p => ({
             name: p.name,
             normalizedName: normalizeName(p.name),
-            subsets: subsetsOf2(normalizeName(p.name).split(' ')).map(name => name.join(' '))
+            subsets: normalizeName(p.name).split(' ')
         }));
 
 const articles = [];
 
-const isPoliticianInString = (str) => {
-    return politicians.find(p => (isNamedInculded(str, p.normalizedName) || (p.subsets.find(subset => isNamedInculded(str, subset)) && p))) || null
+const getPoliticianFromString = (str) => {
+    const list = politicians
+        .filter(p => (
+            isNamedInculded(str, p.normalizedName) ||
+            (p.subsets.find(subset => isNamedInculded(str, subset)) && p)))
+        .map(p => ({ ...p, ...{ score: calculatePoliticianTitleMatchScore(str, p) } }))
+        .sort((a, b) => b.score - a.score)
+        || [];
+    return list.length > 0 ? list[0] : null;
 }
 
 const isVisited = async (link) => {
@@ -43,7 +50,7 @@ const checkLink = async (link) => {
         await db.collection('visited_urls').insertOne({ link: link.toString() })
         if (title) {
             const normalizedTitle = removeAccents(title).toLowerCase();
-            const politician = isPoliticianInString(normalizedTitle);
+            const politician = getPoliticianFromString(normalizedTitle);
             if (politician) {
                 console.log('\x1b[32m found', politician.name)
                 db.collection('articles').insertOne({ link, title, politician })
