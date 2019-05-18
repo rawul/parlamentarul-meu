@@ -17,7 +17,8 @@ export class LoginModalComponent implements OnInit {
   }
 
   submit() {
-    this.loginService.login(this.user.email, this.user.password).subscribe(x => {
+    console.log(this.user);
+    this.loginService.getLogin(this.user.email, this.user.password).subscribe(x => {
       console.log(x);
     }, err => {
       console.log(err);
