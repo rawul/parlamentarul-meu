@@ -28,10 +28,7 @@ export class DashboardComponent implements OnInit {
 
   }
   openDialog(): void {
-    const dialogRef = this.dialog.open(ProfileModalComponent, {
-      width: '400px',
-      height: '500px'
-    });
+    const dialogRef = this.dialog.open(ProfileModalComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
