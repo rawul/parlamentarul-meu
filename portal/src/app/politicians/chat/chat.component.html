@@ -1,0 +1,20 @@
+<div class="chat-wrapper">
+  <app-nav-bar></app-nav-bar>
+  <div class="sidebar">
+    <div class="sidebar-chat" *ngFor="let sidebarChat of chats">
+      <div class="chat-icon">
+        <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg" alt="">
+      </div>
+      <div class="details">
+        <div class="chat-name">De ce furi?</div>
+        <div class="chat-description">Pentru ca pot</div>
+      </div>
+    </div>
+  </div>
+  <div class="chat">
+    <div class="type-bar">
+      <input type="text" placeholder="Type message here...">
+      <i class="far fa-paper-plane"></i>
+    </div>
+  </div>
+</div>
