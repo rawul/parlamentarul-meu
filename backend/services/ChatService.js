@@ -17,7 +17,7 @@ const ChatService = {
         else {
             console.log(chat);
             if(chat == "[]")
-                res.status(200).json();
+                res.status(404).json();
             else{
                 baseUrl += req.params.token;
                 let message = new Message({from: req.body.from, content: req.body.content, chatURL: baseUrl, timestamp: new Date().toISOString()});

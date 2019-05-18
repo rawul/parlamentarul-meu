@@ -18,6 +18,9 @@ let Chat = new Schema({
  },
  messages: {
      type: Array
+ },
+ letter: {
+   type: Boolean
  }
 },{
  collection: 'chat'

@@ -2,10 +2,10 @@ const express = require('express');
 const nodemailer = require("nodemailer");
 var smtpTransport = require('nodemailer-smtp-transport');
 const uuidv4 = require('uuidv4');
-
 const fs = require('fs');
 const pdf = require('html-pdf');
-
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 
 let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
@@ -20,6 +20,18 @@ let transporter = nodemailer.createTransport(smtpTransport({
   }
 }));
 
+function exportAsPdf (mail, message) {
+  const options = { format: 'A4'}
+  const dom = JSDOM.fromFile('./services/test.html', options).then(d => {
+    d.window.document.getElementById("email-from").innerHTML = mail;
+    d.window.document.getElementById("message").innerHTML = message;
+    pdf.create(d.serialize(), options).toFile('./services/test.pdf', (err, res) => {
+    if (err) return console.log(err);
+      console.log(res);
+  });
+  });
+}
+
 const Message = require('../models/MessageModel');
 const Chat = require('../models/ChatModel');
 
@@ -28,15 +40,16 @@ let baseUrl = "localhost:4000/api/v1/chat/"
 const MessageService = {
   sendMessage: async (req, res) => {
 
-  if(req.body.to !== null){
-    let toDeputyMail = transporter.sendMail({
-      to: req.body.to,
-      cc: req.body.from,
-      subject: req.body.subject,
-      text: req.body.content
-    });
-  }
-    
+    if(req.body.to !== null){
+      let toDeputyMail = transporter.sendMail({
+        to: req.body.to,
+        cc: req.body.from,
+        subject: req.body.subject,
+        text: req.body.content
+      });
+      exportAsPdf(req.body.to, req.body.content);
+    }
+  
     let token = uuidv4();
 
     let toSenderMail = transporter.sendMail({
@@ -71,15 +84,6 @@ const MessageService = {
       console.log(err);
       res.status(400).json({ message: 'Error retrieving chats' });
     }
-  },
-  exportAsPdf: (req, res) => {
-    const html = fs.readFileSync(req.body.url, 'utf8');
-    const options = { format: 'Letter' };
-
-    pdf.create(html, options).toFile('./services/test.pdf', (err, res) => {
-      if (err) return console.log(err);
-        console.log(res);
-    });
   }
 }
 
