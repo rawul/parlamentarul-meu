@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+import {MatMenuModule} from '@angular/material/menu';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NavBarComponent } from './dashboard/nav-bar/nav-bar.component';
@@ -23,7 +24,8 @@ import { ProfileModalComponent } from './dashboard/profile-modal/profile-modal.c
     FormsModule,
     MatButtonModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatMenuModule
   ],
   entryComponents: [LoginModalComponent, ProfileModalComponent],
   providers: [LoginService]

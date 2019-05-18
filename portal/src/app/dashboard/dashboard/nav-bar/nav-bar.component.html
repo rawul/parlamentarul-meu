@@ -2,5 +2,11 @@
   <button (click)="scroll(1)" class="btn1 mr-10-1">Harta Interactiva</button>
   <button (click)="scroll(2)" class="btn1">Parlamentari</button>
   <button (click)="showLoginModal()" class="btn2 ml-auto" *ngIf="!isLoggedIn">Login</button>
-  <fa-icon [icon]="faUser"></fa-icon>
+  <div class="ml-auto user-button" [matMenuTriggerFor]="appMenu" *ngIf="isLoggedIn">
+    <fa-icon [icon]="faUser" class="fa-lg" ></fa-icon>
+  </div>
+  <mat-menu #appMenu="matMenu">
+    <button mat-menu-item class="menu-item">Profil</button>
+    <button mat-menu-item class="menu-item">Log Out</button>
+  </mat-menu>
 </div>

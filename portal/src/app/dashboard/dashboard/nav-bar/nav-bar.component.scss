@@ -15,3 +15,25 @@
   transition: top 0.3s;
   /* Transition effect when sliding down (and up) */
 }
+
+.user-button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+/deep/ .mat-menu-content {
+  padding: 0 !important;
+}
+
+.menu-item {
+  padding: 0px 30px;
+  display: flex;
+  justify-content: space-between;
+}

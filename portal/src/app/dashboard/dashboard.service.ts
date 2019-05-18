@@ -7,12 +7,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DashboardService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getUser(): string {
     return localStorage.getItem('user');
   }
-  // getBrief(missionId: number): Observable<any> {
-  //   return this.http.get<any>();
-  // }
 }
