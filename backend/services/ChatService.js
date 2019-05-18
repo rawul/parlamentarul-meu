@@ -56,14 +56,15 @@ const ChatService = {
     }
   },
   getChatByToken: async (req, res) => {
+    console.log(req.user);
     const token = req.params.token;
     try {
-    let chat = await Chat.findOne({userToken: token}).lean().exec();
-    let messages = await Message.find({chatURL: chat.url}).lean().exec();
-    chat.messages = messages;
-    res.status(200).json(chat);
-    }catch(err) {
-      console.log(err);
+      let chat = await Chat.findOne({ userToken: token }).lean().exec();
+      let messages = await Message.find({ chatURL: token }).lean().exec();
+      chat.messages = messages;
+      res.status(200).json(chat);
+    } catch (err) {
+      // console.log(err);
       res.status(404).json();
     }
   }
