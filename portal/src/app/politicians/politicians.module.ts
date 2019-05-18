@@ -8,9 +8,10 @@ import { PoliticiansRoutingModule } from './politicians-routing.module';
 import { PoliticiansComponent } from './politicians/politicians.component';
 import { PersonalProfileComponent } from './personal-profile/personal-profile.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ChatComponent } from './chat/chat.component';
 
 @NgModule({
-  declarations: [PoliticiansComponent, PersonalProfileComponent, NavBarComponent],
+  declarations: [PoliticiansComponent, PersonalProfileComponent, NavBarComponent, ChatComponent],
   imports: [
     CommonModule,
     PoliticiansRoutingModule,

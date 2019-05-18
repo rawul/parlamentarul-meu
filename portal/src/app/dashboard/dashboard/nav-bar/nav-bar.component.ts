@@ -12,7 +12,7 @@ import { faSortDown } from '@fortawesome/free-solid-svg-icons';
 })
 export class NavBarComponent implements OnInit {
   @Output() scrollTo = new EventEmitter<number>();
-  isLoggedIn: boolean = true;
+  isLoggedIn: boolean = false;
   faUser = faUser;
   faSortDown = faSortDown;
   constructor(
