@@ -2,6 +2,7 @@ const cheerio = require('cheerio')
 const fs = require('fs');
 const path = require('path');
 const needle = require('needle');
+const removeAccents = require('remove-accents');
 
 const filename = path.join(__dirname, 'dump/deputies.json');
 const domain = 'http://www.cdep.ro';
@@ -59,7 +60,7 @@ const getPeopleCountyMatch = async () => {
         .find('tr')
         .each((i, row) => {
             const name = $(row).find('td').eq(1).text()
-            const county = $(row).find('td').eq(2).text().toLowerCase().replace(/^\d+\s+\/\s+|\s/gm, '') || null;
+            const county = removeAccents($(row).find('td').eq(2).text().toLowerCase().replace(/^\d+\s+\/\s+|\s/gm, '')) || null;
             if (name) {
                 people.push({ name, county })
             }

@@ -11,8 +11,14 @@ let Senator = new Schema({
   district: {
     type: String
   },
-},{
-  collection: 'persons'
-});
+  county: {
+    type: String
+  },
+  pictureURL: {
+    type: String
+  }
+}, {
+    collection: 'senators'
+  });
 
 module.exports = mongoose.model('Senator', Senator);

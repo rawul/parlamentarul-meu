@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -24,7 +25,8 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatButtonModule,
     HttpClientModule,
     MatCheckboxModule,
-    TextFieldModule
+    TextFieldModule,
+    FontAwesomeModule
   ],
   entryComponents: [LoginModalComponent, ProfileModalComponent],
   providers: [LoginService]
