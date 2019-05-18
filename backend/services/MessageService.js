@@ -95,12 +95,10 @@ const MessageService = {
     const politicianEmail = req.query.email;
     try {
       const chats = await Chat.find({ politicianMail: politicianEmail }).lean().exec();
-      console.log({ chats })
       for (var i = 0; i < chats.length; i++) {
         try {
           const messages = await Message.find({ chatURL: chats[i].url }).lean().exec();
           chats[i].messages = messages;
-          console.log({ messages, i })
         } catch (err) {
           res.status(400).json({ message: "Message could not be retrieved" });
         }
