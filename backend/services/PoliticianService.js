@@ -11,6 +11,8 @@ const PoliticianService = {
   },
   getPoliticians: async (req, res) => {
     try {
+      const page = req.query.page;
+      const size = req.query.size;
       const deputies = await Deputy.find({}).lean().exec();
       const senators = await Senator.find({}).lean().exec();
       res.json([...deputies, ...senators]);
@@ -31,10 +33,9 @@ const PoliticianService = {
   getPoliticiansByName: async (req, res) => {
     const name = req.query.name;
     try {
-      console.log(req.query);
-      const deputies = await Deputy.find({ name : new RegExp(name, "i") }).lean().exec();
-      const senators = await Senator.find({ name : new RegExp(name, "i") }).lean().exec();
-      res.json([...deputies, ...senators]);
+      const deputies = await Deputy.find({ name : new RegExp('^' + name, 'ig')}).lean().exec();
+      const senators = await Senator.find({ name : new RegExp('^' + name, 'ig')}).lean().exec();
+      res.json([...deputies, ...senators])
     } catch (err) {
       res.status(400).json({ message: 'Error when retrieving politicians by name' })
     }
@@ -42,3 +43,5 @@ const PoliticianService = {
 }
 
 module.exports = PoliticianService;
+
+//new RegExp('^'+name, "ig") 
