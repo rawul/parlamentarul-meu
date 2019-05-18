@@ -15,11 +15,12 @@ export class ProfileModalComponent implements OnInit {
     letter: false
   };
   politician: Politician;
-
+  showMessage = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) public injectData: any
   ) {
-    this.politician = injectData;
+    this.politician = injectData.politician;
+    this.showMessage = injectData.showMsg;
   }
 
   ngOnInit() {
