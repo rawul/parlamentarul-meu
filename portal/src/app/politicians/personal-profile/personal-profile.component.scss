@@ -1,72 +1,106 @@
-.profile-wrapper{
-    width: 100vw;
-    height: 100vh;
-    padding: 150px 200px;
-    box-sizing: border-box;
-    display: flex;
-    .img-wrapper{
-        width: 30%;
-        img{
-            width: 100%;
-        }
+.profile-wrapper {
+  margin-top: 64px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  .img-wrapper {
+    padding: 0px 50px;
+
+    img {
+      background-color: white;
+      width: 200px;
+      height: 200px;
+      border: 5px solid white;
+      border-radius: 50%;
+      margin: 30px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      object-fit: contain;
     }
-    .profile-content{
-        width: 80%;
+  }
+
+  .info-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .name {
+    font-size: 25px;
+    font-weight: 100;
+  }
+
+  .position {
+      color: white;
+    font-size: 25px;
+    font-weight: 300;
+  }
+
+  .profile-content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 40px;
+
+    .header {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+
+
+      .location {
         display: flex;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        padding: 0px 40px;
-        .header{
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            align-content: flex-start;
-            .name{
-                font-size: 25px;
-            }
-            .location{
-                display: flex;
-                margin-left: 20px;
-                align-items: center;
-                img{
-                    width: 20px;
-                    height: 20px;
-                }
-            }
-            .role{
-                font-size: 14px;
-                color: #ffad00;
-            }
-            .send-message-button{
-                border: 1px solid black;
-                border-radius: 3px;
-                padding: 5px 10px;
-                cursor: pointer;
-                img{
-                    width: 12px;
-                    margin-left: 5px;
-                }
-                #first-image{
-                    display: none;
-                }
-            }
-            .send-message-button:hover{
-                background-color: rgb(233, 229, 229);
-                border: 1px solid transparent;
-            }
+        margin-left: 20px;
+        align-items: center;
+
+        img {
+          width: 20px;
+          height: 20px;
         }
-        .tabs{
-            margin-top: 40px;
+      }
+
+      .role {
+        font-size: 14px;
+        color: #ffad00;
+      }
+
+      .send-message-button {
+        border: 1px solid black;
+        border-radius: 3px;
+        padding: 5px 10px;
+        cursor: pointer;
+
+        img {
+          width: 12px;
+          margin-left: 5px;
         }
+
+        #first-image {
+          display: none;
+        }
+      }
+
+      .send-message-button:hover {
+        background-color: rgb(233, 229, 229);
+        border: 1px solid transparent;
+      }
     }
+
+    .tabs {
+      margin-top: 40px;
+    }
+  }
 }
 
-.row{
-    width: 100%;
-    display: flex;
-    flex-wrap: nowrap;
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
 }
 
-.mt-20{
-    margin-top: 20px;
+.mt-20 {
+  margin-top: 20px;
 }

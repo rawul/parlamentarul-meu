@@ -6,12 +6,10 @@ html {
   height: 100vh;
 
   body {
-    height: 100vh;
     margin: 0;
 
     app-root {
       display: block;
-      height: 100vh;
 
       app-dashboard {
         min-height: 110vh;
@@ -26,6 +24,22 @@ html {
       }
     }
   }
+}
+
+.card {
+  margin-bottom: 40px;
+  background-color: white;
+  height: auto;
+  min-height: 100px;
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+  border-radius: 5px;
+  /* background-color: #ffad00; */
+  align-items: center;
+  /* border: 1px solid #ffad00; */
+  justify-content: space-between;
+  box-shadow: 0 0 3px 0px #9a9a9a;
 }
 
 .btn1 {
@@ -71,7 +85,7 @@ html {
   width: 500px;
 }
 
-app-profile-modal{
+app-profile-modal {
   display: flex !important;
 }
 
