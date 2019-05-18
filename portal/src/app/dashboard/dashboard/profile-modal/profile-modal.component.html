@@ -1,13 +1,11 @@
-<div class="profile-wrapper">
+<div class="profile-wrapper flex-1">
   <div class="header">
     <div class="image-wrapper">
       <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg" alt="">
     </div>
     <div class="name">Liviu Dragnea</div>
-    <div class="buttons">
-      <div class="message-button"></div>
-
-    </div>
+    <button (click)="showMessage = true" class="btn1 mt-10-1">Trimite mesaj
+    </button>
   </div>
   <div class="details">
     <div class="field">
@@ -32,3 +30,27 @@
     </div>
   </div>
 </div>
+<form #f="ngForm" (submit)="f.form.valid && submit()">
+  <div *ngIf="showMessage" class="w3-animate-left msg-wrapper flex-1 layout vertical">
+    <mat-form-field>
+      <mat-label>Mesaj</mat-label>
+      <textarea required [(ngModel)]="message.msg" name="msg" matInput cdkTextareaAutosize
+        #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="15" cdkAutosizeMaxRows="15"></textarea>
+      <mat-error>Camp obligatoriu</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input [(ngModel)]="message.from" #email="ngModel" [email]="true" name="email" placeholder="Email-ul tau" matInput
+        required>
+      <mat-error *ngIf="email.errors && email.errors.required">Camp obligatoriu</mat-error>
+      <mat-error *ngIf="email.errors &&  email.errors.email">Email invalid</mat-error>
+    </mat-form-field>
+    <mat-checkbox (change)="message.letter=!message.letter" [checked]="message.letter" name="letter"
+      class="mt-auto mb-10-1" style="font-size: 12px">Vrei sa
+      trimitem acest
+      mesaj
+      si la adresa postala?
+    </mat-checkbox>
+    <button type="submit" class="btn2 ">Trimite</button>
+  </div>
+
+</form>
