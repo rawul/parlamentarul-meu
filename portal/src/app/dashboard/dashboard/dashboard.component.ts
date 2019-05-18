@@ -32,7 +32,9 @@ export class DashboardComponent implements OnInit {
   constructor(public dialog: MatDialog, private dashService: DashboardService) { }
 
   ngOnInit() {
-    this.seeAll();
+    this.dashService.getAll().subscribe((x: any) => {
+      this.politicians = x;
+    })
   }
 
   loadPoliticians($event) {
@@ -46,7 +48,6 @@ export class DashboardComponent implements OnInit {
       this.politicians = x;
     })
     document.getElementById('panel2').scrollIntoView();
-
   }
 
   scrollTo(ev) {
