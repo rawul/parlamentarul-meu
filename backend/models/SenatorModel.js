@@ -12,7 +12,7 @@ let Senator = new Schema({
     type: String
   },
 },{
-  collection: 'persons'
+  collection: 'senators'
 });
 
 module.exports = mongoose.model('Senator', Senator);

@@ -2,6 +2,7 @@ const express = require('express');
 const senatorRoutes = express.Router();
 
 let Senator = require('../models/SenatorModel');
+let Message = require('../models/MessageModel');
 
 const SenatorService = {
   add: async (req, res) => {

@@ -19,10 +19,7 @@ let Deputy = new Schema({
     require: true
   },
 },{
-  collection: 'persons'
+  collection: 'deputies'
 });
 
-
-// Deputy.plugin(passportLocalMongoose);
-// Deputy.plugin(findOrCreate);
 module.exports = mongoose.model('Deputy', Deputy);
