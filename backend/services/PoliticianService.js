@@ -1,5 +1,4 @@
 const express = require('express');
-const deputyRoutes = express.Router();
 
 let Deputy = require('../models/DeputyModel');
 let Senator = require('../models/SenatorModel');
