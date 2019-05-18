@@ -15,11 +15,6 @@ mongoose.connect(config.DB, { useNewUrlParser: true }).then(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-<<<<<<< HEAD
-app.listen(PORT, function(){
-  console.log('Server is running on Port:',PORT);
-});
-=======
 app.listen(PORT, function () {
   console.log('Server is running on Port:', PORT);
 });
@@ -27,4 +22,3 @@ app.listen(PORT, function () {
 app.use(async (req, res) => {
   res.send(500).json({ message: 'Server error' });
 })
->>>>>>> bfe8c831fc59a0787049b30bdf7deda59221b87f
