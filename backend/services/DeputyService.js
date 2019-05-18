@@ -2,6 +2,7 @@ const express = require('express');
 const deputyRoutes = express.Router();
 
 let Deputy = require('../models/DeputyModel');
+let Msg = require('../models/MessageModel');
 
 const DeputyService = {
   addDeputy: async (req, res) => {
@@ -45,6 +46,15 @@ const DeputyService = {
       } else {
         res.send(deputy);
       }
+    });
+  },
+  getMessages: async (req, res) => {
+    let to = req.params.mail;
+    Msg.find({ to:to }, (err, messages) => {
+      if(err)
+      console.log(err);
+    else
+      res.json(messages);
     });
   }
 }
