@@ -10,8 +10,6 @@ const Deputy = require('../models/DeputyModel');
 const Senator = require('../models/SenatorModel');
 const User = require('../models/UserModel');
 
-let baseUrl = "localhost:4000/api/v1/chat/"
-
 const ChatService = {
   sendUserMessage: async (req, res) => {
     Chat.find(function (err, chat) {
@@ -19,20 +17,18 @@ const ChatService = {
         console.log(err);
       }
       else {
-        console.log(chat);
         if (chat == "[]")
           res.status(200).json();
         else {
-          baseUrl += req.params.token;
-          let message = new Message({ from: req.body.from, content: req.body.content, chatURL: baseUrl, timestamp: new Date().toISOString() });
-          message.save().then((err) => {
-            if (err) {
-              console.log(err);
-              res.status(400).json();
-            }
-            else
+          let message = new Message({ from: req.body.from, content: req.body.content, chatURL: req.params.token, timestamp: new Date().toISOString() });
+          message.save()
+            .then(() => {
               res.status(200).json();
-          })
+            })
+            .catch((err) => {
+              console.log({ err });
+              res.status(400).json();
+            })
         }
       }
     });
