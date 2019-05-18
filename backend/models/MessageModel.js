@@ -12,6 +12,9 @@ chatURL: {
  },
  timestamp: {
      type: String
+ },
+ obscene: {
+   type: Boolean
  }
 }, {
   collection: "messages"

@@ -9,6 +9,20 @@ const Chat = require('../models/ChatModel');
 const Deputy = require('../models/DeputyModel');
 const Senator = require('../models/SenatorModel');
 const User = require('../models/UserModel');
+const filter = require('./SpamFilter')
+
+let transporter = nodemailer.createTransport(smtpTransport({
+  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 587,
+  auth: {
+    user: 'testmeteowrite@gmail.com',
+    pass: 'Meteowrite1.'
+  },
+  tls: {
+    rejectUnauthorized: false
+  }
+}));
 
 const ChatService = {
   sendUserMessage: async (req, res) => {
@@ -20,8 +34,17 @@ const ChatService = {
         if (chat == "[]")
           res.status(200).json();
         else {
-          let message = new Message({ from: req.body.from, content: req.body.content, chatURL: req.params.token, timestamp: new Date().toISOString() });
-          message.save()
+          if(filter.isSpam(req.body.content)){
+            let spamMail = transporter.sendMail({
+              to: req.body.from,
+              subject: "Mesaj netrimis",
+              html: `<p>Mesajul dumneavoastra a fost considerat ca fiind neadecvat. Astfel, nu a fost trimis parlamentarului.</p>`,
+            });
+            res.status(200).json();
+          }
+          else{
+            let message = new Message({ from: req.body.from, content: req.body.content, chatURL: req.params.token, timestamp: new Date().toISOString() });
+            message.save()
             .then(() => {
               res.status(200).json();
             })
@@ -29,6 +52,8 @@ const ChatService = {
               console.log({ err });
               res.status(400).json();
             })
+          }
+          
         }
       }
     });
