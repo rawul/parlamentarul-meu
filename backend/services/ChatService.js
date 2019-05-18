@@ -45,21 +45,20 @@ const ChatService = {
     } else {
       let chat = await Chat.findById(req.body.chatId).lean().exec();
       if (chat === null) {
-        console.log("test");
         res.status(404).json({ "chat": "not found" });
       } else {
 
         let message = new Message({ from: req.body.from, content: req.body.content, chatURL: chat.url, timestamp: new Date().toISOString() });
 
-        message.save().then( msg => {
+        message.save().then(msg => {
           res.status(201).json();
-          }).catch( err =>  {
-            console.log(err);
-            res.status(400).json();
-          });
+        }).catch(err => {
+          console.log(err);
+          res.status(400).json();
+        });
+      }
     }
   }
-}
 }
 
 module.exports = ChatService;

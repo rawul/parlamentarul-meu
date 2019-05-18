@@ -18,6 +18,12 @@ export class DashboardService {
   getAllByCounty(county: string) {
     return this.http.get(`http://192.168.6.203:2500/api/v1/politician/${county.toLowerCase()}`);
   }
+
+  sendMessage(message: any) {
+    return this.http.post(`http://192.168.6.203:2500/api/v1/message`, message);
+
+  }
+
   // getBrief(missionId: number): Observable<any> {
   //   return this.http.get<any>();
   // }
