@@ -17,7 +17,6 @@ const PoliticianService = {
     } catch (err) {
       res.status(400).json({ message: 'There has been an error' })
     }
-    console.log({ county })
   },
 }
 
