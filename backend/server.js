@@ -20,5 +20,5 @@ app.listen(PORT, function () {
 });
 
 app.use(async (req, res) => {
-  res.send(500).json({ message: 'Server error' });
+  res.status(500).json({ message: 'Server error' });
 })
