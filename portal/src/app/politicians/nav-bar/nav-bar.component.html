@@ -1,11 +1,14 @@
 <div id="navbar" class="navbar layout horizontal center">
-  <button class="btn1 mr-10-1"  routerLink="/dashboard">Pagina Principala</button>
-  <div class="ml-auto user-button" routerLink="/politicians/profile">
-    <!-- [matMenuTriggerFor]="appMenu" -->
-    <fa-icon [icon]="faUser" class="fa-lg"></fa-icon>
+  <button class="btn1 mr-10-1" routerLink="/dashboard">Pagina Principala</button>
+  <div class="ml-auto user-button" [matMenuTriggerFor]="appMenu">
+    <!-- <span>Hello, Cacanare</span> -->
+    <div class="image-wrapper">
+      <img [src]="pictureUrl" alt="">
+    </div>
+    <!-- <fa-icon [icon]="faSortDown" class="fa-md"></fa-icon> -->
   </div>
-  <!-- <mat-menu #appMenu="matMenu">
-    <button mat-menu-item class="menu-item">Profil</button>
-    <button mat-menu-item class="menu-item">Log Out</button>
-  </mat-menu> -->
+  <mat-menu #appMenu="matMenu">
+    <button mat-menu-item class="menu-item" routerLink="/politicians/profile">Profil</button>
+    <button mat-menu-item class="menu-item" (click)="logout()">Log Out</button>
+  </mat-menu>
 </div>

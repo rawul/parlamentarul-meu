@@ -25,6 +25,9 @@ export class NavBarComponent implements OnInit {
     if (this.service.getToken()) {
       this.isLoggedIn = true;
     }
+    if (localStorage.getItem('politician')) {
+      this.pictureUrl = (JSON.parse(localStorage.getItem('politician'))).pictureUrl;
+    }
   }
 
   scroll(i) {
