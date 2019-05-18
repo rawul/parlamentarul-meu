@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Message = require('./MessageModel');
+
 
 let Chat = new Schema({
  url: {
@@ -13,6 +15,9 @@ let Chat = new Schema({
  },
  userToken: {
    type: String
+ },
+ messages: {
+     type: Array
  }
 },{
  collection: 'chat'

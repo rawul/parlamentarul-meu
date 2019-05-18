@@ -23,7 +23,7 @@ let Deputy = new Schema({
   email: {
     type: String,
     require: true
-  },
+    },
 },{
   collection: 'deputies'
 });
