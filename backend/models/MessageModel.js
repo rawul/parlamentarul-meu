@@ -12,10 +12,7 @@ const Message = new mongoose.Schema({
   },
    content: {
      type: String
-   },
-   letter: {
-       type: Boolean
    }
  });
 
-mongoose.model("Message", Message);
+module.exports = mongoose.model("Message", Message);
