@@ -3,11 +3,24 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProfileModalComponent } from './profile-modal/profile-modal.component';
 import { Politician } from 'src/app/models/politician.model';
 import { DashboardService } from '../dashboard.service';
+import { trigger, transition, animate, style } from '@angular/animations'
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':leave', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('500ms ease-in', style({ transform: 'translateX(0%)' }))
+      ]),
+      transition(':leave', [
+        animate('500ms ease-in', style({ transform: 'translateX(-100%)' }))
+      ])
+    ])
+  ]
+
 })
 export class DashboardComponent implements OnInit {
   judet = '';
