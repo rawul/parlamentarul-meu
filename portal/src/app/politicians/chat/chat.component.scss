@@ -78,7 +78,8 @@
       }
 
       svg {
-        width: 50px;
+        width: 25px;
+        padding-right: 20px;
 
         &:hover {
           cursor: pointer;
@@ -86,5 +87,100 @@
         }
       }
     }
+  }
+}
+
+.active-chat {
+  background-color: #ffad00;
+  &:hover {
+    background-color: #ffad00 !important;
+  }
+  .chat-name {
+    font-weight: 500;
+  }
+  .chat-description {
+    color: #f9f9f9 !important;
+  }
+  .chat-icon {
+    background-color: white !important;
+  }
+}
+
+.inc-message {
+  cursor: pointer;
+  .text {
+    background-color: #ffad00;
+    color: white;
+    padding: 10px;
+    display: block;
+    margin: 10px;
+    border-radius: 12px;
+    border-left-style: double;
+    border-width: 15px;
+    background-color: #ffad00;
+    color: white;
+  }
+  .date {
+    padding-left: 10px;
+    display: block;
+    margin-left: 10px;
+    font-size: 12px;
+    color: #272727;
+    animation: animatetop 0.5s;
+  }
+  &:hover {
+    .text {
+      background-color: #ff9d00;
+    }
+  }
+}
+
+.out-message {
+  cursor: pointer;
+  .text {
+    padding: 10px;
+    display: block;
+    margin: 10px;
+    border-radius: 12px;
+    border-right-style: double;
+    border-width: 15px;
+    background-color: #909090;
+    color: white;
+  }
+  .date {
+    padding-left: 10px;
+    display: block;
+    margin-left: 10px;
+    font-size: 12px;
+    color: #272727;
+    animation: animatetop 0.5s;
+  }
+  &:hover {
+    .text {
+      background-color: #727272;
+    }
+  }
+}
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.clicked-inc {
+  .text {
+    background-color: #ff9d00;
+  }
+}
+
+.clicked-out {
+  .text {
+    background-color: #727272;
   }
 }
