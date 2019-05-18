@@ -13,6 +13,7 @@ export class AnonimChatComponent implements OnInit {
   sidebarChat: any;
   token: string;
   interval: any;
+  email: string;
   constructor(
     private service: DashboardService,
     private route: ActivatedRoute,
@@ -27,7 +28,10 @@ export class AnonimChatComponent implements OnInit {
         this.interval = interval(1000).subscribe(x => {
           this.service.getChatByToken(this.token).subscribe(element => {
             this.sidebarChat = element;
-            console.log(this.sidebarChat)
+            this.email = this.sidebarChat.messages[0].from;
+            this.sidebarChat.messages.forEach(element => {
+              // console.log(element.from);
+            });
           });
         })
         console.log(this.interval);
@@ -47,7 +51,7 @@ export class AnonimChatComponent implements OnInit {
       //     this.chats = chats;
       //   })
       // })
-      this.service.postMessage(this.currentMessage, this.token).subscribe(element => {
+      this.service.postMessage(this.currentMessage, this.token, this.email).subscribe(element => {
         this.service.getChatByToken(this.token).subscribe(element => {
           this.sidebarChat = element;
         })

@@ -33,7 +33,7 @@ export class DashboardService {
   getChatByToken(token: string) {
     return this.http.get('http://192.168.6.203:2500/api/v1/chat/' + token);
   }
-  postMessage(message: string, token: string) {
-    return this.http.post('http://192.168.6.203:2500/api/v1/chat/' + token, { from: 'raulgherasim@gmail.com', content: message })
+  postMessage(message: string, token: string, email: string) {
+    return this.http.post('http://192.168.6.203:2500/api/v1/chat/' + token, { from: email, content: message })
   }
 }
