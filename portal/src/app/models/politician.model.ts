@@ -11,6 +11,14 @@ export class Politician {
         public address: string,
         public imageUrl: string,
         public county: string,
-        public politicianType: PoliticianType
+        public politicianType: PoliticianType,
+        public activity: {
+            declaratiiPolitice: number
+            intrebariSiInterpelari: number
+            luariDeCuvant: { total: number, sedinte: number }
+            motiuni: number
+            propuneriDeHotarare: number
+            propuneriLegislative: { total: number, promulgate: number }
+        }
     ) { }
 }

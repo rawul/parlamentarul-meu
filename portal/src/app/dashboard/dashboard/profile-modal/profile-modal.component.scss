@@ -41,14 +41,15 @@
 
   .details {
     border-top: 5px solid #ffad00;
-    padding: 30px;
+    padding: 10px 30px;
     box-sizing: border-box;
     background-color: #f1f1f1;
 
     .field {
+      margin-bottom: 2px;
       width: 100%;
+      word-break: break-all;
       border-bottom: 1px solid #eaeaea;
-      margin-bottom: 10px;
 
       .label {
         font-size: 10px;

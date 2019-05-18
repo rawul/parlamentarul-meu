@@ -27,4 +27,13 @@ export class DashboardService {
   // getBrief(missionId: number): Observable<any> {
   //   return this.http.get<any>();
   // }
+  getChats(email) {
+    return this.http.get('http://192.168.6.203:2500/api/v1/chat/politician?email=' + email)
+  }
+  getChatByToken(token: string) {
+    return this.http.get('http://192.168.6.203:2500/api/v1/chat/' + token);
+  }
+  postMessage(message: string, token: string) {
+    return this.http.post('http://192.168.6.203:2500/api/v1/chat/' + token, { from: 'raulgherasim@gmail.com', content: message })
+  }
 }

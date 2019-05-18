@@ -1,7 +1,6 @@
 <div class="chat-wrapper">
-  <div class="sidebar">
-    <div class="sidebar-chat" *ngFor="let sidebarChat of chats; let chatIndex = index"
-      [ngClass]="{'active-chat': i == activeChat}" (click)="selectChat(chatIndex)">
+  <div class="sidebar"  (click)="click()">
+    <div class="sidebar-chat" [ngClass]="{'active-chat': i == activeChat}">
       <div class="chat-icon">
         <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg" alt="">
       </div>
@@ -13,7 +12,7 @@
   </div>
   <div class="chat">
     <div class="layout vertical flex-1" style="margin-bottom: 64px;    overflow: auto;">
-      <div style="height: 60px;" class="flex-1" *ngIf="chats && chats.length !=0">
+      <div style="height: 60px;" class="flex-1" *ngIf="sidebarChat">
         <!-- <div class="inc-message" style=" width: fit-content; ">
           <span style="     background-color: #ffad00;
           color: white;
@@ -44,11 +43,11 @@
             font-size: 12px;
             color: #272727;">10.10.2017 18:12</span>
         </div> -->
-        <div [ngClass]="{'inc-message': message.from != politician.email, 'out-message ml-auto': message.from == politician.email, 
+        <div [ngClass]="{'inc-message': message.from == sidebarChat.politicianEmail, 'out-message ml-auto': message.from != sidebarChatpoliticianEmail, 
                           'clicked-inc': !message.myMessage && message.showDate,
                           'clicked-out': message.myMessage && message.showDate
                         }" style=" width: fit-content; "
-          *ngFor="let message of chats[activeChat].messages; let messageIndex = index" (click)="showDate(i)">
+          *ngFor="let message of sidebarChat.messages; let messageIndex = index" (click)="showDate(i)">
           <span class="text">{{message.content}}</span>
           <span class="date" *ngIf="message.showDate">10.10.2017 18:12</span>
         </div>

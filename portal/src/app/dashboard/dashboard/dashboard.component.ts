@@ -43,6 +43,10 @@ export class DashboardComponent implements OnInit {
 
   scrollTo(ev) {
     switch (ev) {
+      case 0: {
+        document.getElementById('panel0').scrollIntoView();
+        break;
+      }
       case 1: {
         document.getElementById('panel1').scrollIntoView();
         break;
