@@ -6,6 +6,7 @@ const fs = require('fs');
 const pdf = require('html-pdf');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const filter = require('./SpamFilter')
 
 let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
@@ -31,6 +32,7 @@ function exportAsPdf (mail, message) {
   });
   });
 }
+
 
 const Message = require('../models/MessageModel');
 const Chat = require('../models/ChatModel');
@@ -71,10 +73,20 @@ const MessageService = {
       html: `<p>Email-ul catre parlamentar a fost trimis cu success. Intra pe urmatorul link daca doresti sa continui discutia cu parlamentarul: <strong>http://localhost:4200/api/v1/chat/${token}</strong></p>`
     }).then(async e => {
       let chat = new Chat({ url: token, subject: req.body.subject, politicianMail: req.body.to, userToken: token, messages: [req.body.content], letter: req.body.letter });
-      let message = new Message({ from: req.body.from, content: req.body.content, chatURL: token, timestamp: new Date().toISOString() });
-      await chat.save();
-      await message.save();
-      res.status(200).json()
+      if(filter.isSpam(req.body.content)){
+        let spamMail = transporter.sendMail({
+          to: req.body.from,
+          subject: "Mesaj netrimis",
+          html: `<p>Mesajul dumneavoastra a fost considerat ca fiind neadecvat. Astfel, nu a fost trimis parlamentarului.</p>`,
+        });
+        res.status(200).json();
+      }
+      else {
+        let message = new Message({ from: req.body.from, content: req.body.content, chatURL: token, timestamp: new Date().toISOString() });
+        await chat.save();
+        await message.save();
+        res.status(200).json()
+      }  
     }).catch(
       err => console.log(err)
     );
