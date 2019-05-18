@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: './authentication/authentication.module#AuthenticationModule',
+    loadChildren: './authentication/authentication.module#AuthenticationModule'
   },
   {
     path: 'dashboard',
@@ -13,6 +14,7 @@ const routes: Routes = [
   {
     path: 'politicians',
     loadChildren: './politicians/politicians.module#PoliticiansModule',
+    canActivateChild: [AuthGuard]
   },
   {
     path: '**',
