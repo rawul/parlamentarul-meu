@@ -17,14 +17,15 @@ const DeputyService = {
       });
   },
   getDeputies: async (req, res) => {
-    Deputy.find(function (err, deputies) {
-      if (err) {
-        console.log(err);
-      }
-      else {
-        res.json(deputies);
-      }
-    });
+    try {
+      const page = req.query.page;
+      const size = req.query.size;
+      const deputies = await Deputy.find({}).skip(parseInt(size * page)).limit(parseInt(size)).lean().exec();
+      res.status(200).json(deputies);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json();
+    }
   },
   getDeputyById: async (req, res) => {
     console.log(req.params.id);
@@ -37,16 +38,17 @@ const DeputyService = {
     });
   },
   getDeputiesByParty: async (req, res) => {
-    var p = req.query.party;
-    Deputy.find({ party: p }, (error, deputy) => {
-      if (error) {
-        console.log(error);
-        res.status(400);
-        res.send(error);
-      } else {
-        res.send(deputy);
-      }
-    });
+    let party = req.query.party;
+    const page = req.query.page;
+    const size = req.query.size;
+    console.log(party);
+    try {
+      let deputies = await Deputy.find({ party }).skip(parseInt(size * page)).limit(parseInt(size)).lean().exec();
+      res.status(200).json(deputies);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json();
+    }
   },
   getMessages: async (req, res) => {
     let to = req.params.mail;
