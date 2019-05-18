@@ -1,0 +1,187 @@
+.chat-wrapper {
+  height: calc(100vh - 64px);
+  display: flex;
+  border: 1px solid #f1f1f1;
+
+  .sidebar {
+    height: 100%;
+    width: 28%;
+    border-right: 1px solid #f1f1f1;
+
+    .sidebar-chat {
+      width: 100%;
+      height: 100px;
+      border-bottom: 1px solid #f1f1f1;
+      display: flex;
+      align-items: center;
+      padding: 0px 30px;
+      box-sizing: border-box;
+      cursor: pointer;
+
+      //   justify-content: center;
+      .chat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ffad00;
+        margin-right: 15px;
+
+        img {
+          width: 48px;
+          height: 48px;
+          object-fit: contain;
+          border-radius: 50%;
+        }
+      }
+
+      .details {
+        .chat-description {
+          font-size: 13px;
+          color: #a1a1a1;
+        }
+      }
+    }
+
+    .sidebar-chat:hover {
+      background-color: #f1f1f1;
+    }
+
+    // .sidebar-chat:nth-last-of-type(1) {
+    //   border-bottom: 0;
+    // }
+  }
+
+  .chat {
+    height: 100%;
+    display: flex;
+    width: 72%;
+
+    .type-bar {
+      width: 72%;
+      position: fixed;
+      bottom: 0;
+      min-height: 60px;
+      border-top: 2px solid #f1f1f1;
+      display: flex;
+      align-items: center;
+      background-color: white;
+
+      input {
+        height: 40px;
+        border: 0;
+        font-size: 18px;
+        outline: none;
+        padding: 10px 20px;
+        width: 100%;
+      }
+
+      svg {
+        width: 25px;
+        padding-right: 20px;
+
+        &:hover {
+          cursor: pointer;
+          color: #ffad00;
+        }
+      }
+    }
+  }
+}
+
+.active-chat {
+  background-color: #ffad00;
+  &:hover {
+    background-color: #ffad00 !important;
+  }
+  .chat-name {
+    font-weight: 500;
+  }
+  .chat-description {
+    color: #f9f9f9 !important;
+  }
+  .chat-icon {
+    background-color: white !important;
+  }
+}
+
+.inc-message {
+  cursor: pointer;
+  .text {
+    background-color: #ffad00;
+    color: white;
+    padding: 10px;
+    display: block;
+    margin: 10px;
+    border-radius: 12px;
+    border-left-style: double;
+    border-width: 15px;
+    background-color: #ffad00;
+    color: white;
+  }
+  .date {
+    padding-left: 10px;
+    display: block;
+    margin-left: 10px;
+    font-size: 12px;
+    color: #272727;
+    animation: animatetop 0.5s;
+  }
+  &:hover {
+    .text {
+      background-color: #ff9d00;
+    }
+  }
+}
+
+.out-message {
+  cursor: pointer;
+  .text {
+    padding: 10px;
+    display: block;
+    margin: 10px;
+    border-radius: 12px;
+    border-right-style: double;
+    border-width: 15px;
+    background-color: #909090;
+    color: white;
+  }
+  .date {
+    padding-left: 10px;
+    display: block;
+    margin-left: 10px;
+    font-size: 12px;
+    color: #272727;
+    animation: animatetop 0.5s;
+  }
+  &:hover {
+    .text {
+      background-color: #727272;
+    }
+  }
+}
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+
+.clicked-inc {
+  .text {
+    background-color: #ff9d00;
+  }
+}
+
+.clicked-out {
+  .text {
+    background-color: #727272;
+  }
+}

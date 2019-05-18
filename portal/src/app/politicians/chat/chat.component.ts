@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from 'src/app/dashboard/dashboard.service';
+import { ActivatedRoute } from '@angular/router';
+import { interval } from 'rxjs'
 
 @Component({
   selector: 'app-chat',
@@ -39,14 +41,21 @@ export class ChatComponent implements OnInit {
     },
   ]
   constructor(
-    private service: DashboardService
+    private service: DashboardService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.politician = JSON.parse(localStorage.getItem('politician'));
-    this.service.getChats(this.politician.email).subscribe((chats: any) => {
-      this.chats = chats;
-      console.log(chats[0].messages);
+
+    interval(1000).subscribe(x => {
+      this.service.getChats(this.politician.email).subscribe((chats: any) => {
+        this.chats = chats;
+        console.log(chats);
+      })
+    })
+    this.route.params.subscribe((element) => {
+      console.log(element.token)
     })
   }
   selectChat(index: number) {
@@ -62,7 +71,7 @@ export class ChatComponent implements OnInit {
   sendMessage() {
     console.log(this.currentMessage)
     if (this.currentMessage) {
-      this.service.postMessage(this.currentMessage).subscribe(element => {
+      this.service.postMessage(this.currentMessage, this.chats[this.activeChat].userToken).subscribe(element => {
         console.log(element);
         this.service.getChats(this.politician.email).subscribe((chats: any) => {
           this.chats = chats;

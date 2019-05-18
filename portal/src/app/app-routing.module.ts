@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { ChatComponent } from './politicians/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -17,9 +18,14 @@ const routes: Routes = [
     canActivateChild: [AuthGuard]
   },
   {
+    path: 'chat',
+    loadChildren: './chat/chat.module#ChatModule',
+  },
+  {
     path: '**',
     redirectTo: '/dashboard'
-  }
+  },
+  
 ];
 
 @NgModule({
