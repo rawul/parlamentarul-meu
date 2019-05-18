@@ -4,6 +4,11 @@ let Deputy = require('../models/DeputyModel');
 let Senator = require('../models/SenatorModel');
 
 const PoliticianService = {
+  getPoliticianByUser: async (user) => {
+    const deputy = await Deputy.findById(user.politicianId).lean().exec();
+    const senator = await Senator.findById(user.politicianId).lean().exec();
+    return deputy || senator;
+  },
   getPoliticians: async (req, res) => {
     try {
       const deputies = await Deputy.find({}).lean().exec();

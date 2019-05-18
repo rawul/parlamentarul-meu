@@ -14,6 +14,9 @@ const User = new mongoose.Schema({
   token: {
     type: String
   },
+  politicianId: {
+    type: String
+  },
   email: {
     type: String,
     unique: true
