@@ -9,10 +9,7 @@ const PoliticianService = {
     try {
       const deputies = await Deputy.find({ county }).lean().exec();
       const senators = await Senator.find({ county }).lean().exec();
-      res.send([
-        ...deputies.map((deputy) => ({ ...deputy, ...{ politicianType: 'deputy' } })),
-        ...senators.map((senator) => ({ ...senator, ...{ politicianType: 'senator' } }))
-      ]);
+      res.json([...deputies, ...senators]);
     } catch (err) {
       res.status(400).json({ message: 'There has been an error' })
     }
