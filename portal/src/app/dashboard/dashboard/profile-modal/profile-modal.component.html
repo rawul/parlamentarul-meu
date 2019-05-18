@@ -25,6 +25,28 @@
       <div class="label">Email</div>
       <div class="value">{{politician.email?politician.email:'-'}}</div>
     </div>
+    <div class="field">
+      <div class="label">Luari de cuvant </div>
+      <div class="value">{{politician.activity.luariDeCuvant.total}} in
+        {{politician.activity.luariDeCuvant.sedinte}} sedinte</div>
+    </div>
+    <div class="field">
+      <div class="label">Propuneri legislative</div>
+      <div class="value">{{politician.activity.propuneriLegislative.total}},
+        {{politician.activity.propuneriLegislative.promulgate}} promulgate</div>
+    </div>
+    <div class="field">
+      <div class="label">Propuneri de hotarare</div>
+      <div class="value">{{politician.activity.propuneriDeHotarare}}</div>
+    </div>
+    <div class="field">
+      <div class="label">Motiuni</div>
+      <div class="value">{{politician.activity.motiuni}}</div>
+    </div>
+    <div class="field">
+      <div class="label">Intrebari Si Interpelari</div>
+      <div class="value">{{politician.activity.intrebariSiInterpelari}}</div>
+    </div>
   </div>
 </div>
 <form #f="ngForm" (submit)="f.form.valid && submit()">
