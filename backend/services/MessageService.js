@@ -1,38 +1,50 @@
 const express = require('express');
 const nodemailer = require("nodemailer");
 var smtpTransport = require('nodemailer-smtp-transport');
+const uuidv4 = require('uuidv4');
+
 
 let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
-  port:587,
+  port: 587,
   auth: {
     user: 'testmeteowrite@gmail.com',
     pass: 'Meteowrite1.'
   },
-  tls: {      
+  tls: {
     rejectUnauthorized: false
   }
 }));
 
 const Message = require('../models/MessageModel');
+const Chat = require('../models/ChatModel');
+
+let baseUrl = "localhost:4000/api/v1/chat/"
 
 const MessageService = {
-  sendMessage: async(req, res) => {
-    let msg = new Message(req.body);
-    let info =  transporter.sendMail({
-      to:   req.body.to,
-      cc:   req.body.from, 
+  sendMessage: async (req, res) => {
+    let toDeputyMail = transporter.sendMail({
+      to: req.body.to,
+      cc: req.body.from,
       subject: req.body.subject,
-      text:   req.body.content
-    }).then(msg.save().then(
-      em => {
-        res.status(200);
-        res.send("Done");
-      }
-      ).catch(
-        err => console.log(err)
-      )
+      text: req.body.content
+    });
+    let token = uuidv4();
+
+    let toSenderMail = transporter.sendMail({
+      to: req.body.from,
+      subject: req.body.subject,
+      text: token
+    }).then( async e => {
+      baseUrl += token;
+      let chat = new Chat({url:baseUrl, subject: req.body.subject, politicianMail: req.body.to, userToken: token});
+      let message = new Message({from: req.body.from, content: req.body.content, chatURL: baseUrl, timestamp: new Date().toISOString()});
+      await chat.save();
+      await message.save();
+      res.status(200).json()
+    }).catch(
+      err => console.log(err)
     );
   }
 }

@@ -25,6 +25,7 @@ router.use(require(__dirname + "/controllers/DeputyController"));
 router.use(require(__dirname + "/controllers/SenatorController"));
 router.use(require(__dirname + "/controllers/MessageController"));
 router.use(require(__dirname + "/controllers/PoliticianController"));
+router.use(require(__dirname + "/controllers/ChatController"));
 
 
 app.use('/api/v1', router);
