@@ -12,6 +12,22 @@ const PoliticianService = {
     const senator = await Senator.findById(user.politicianId).lean().exec();
     return deputy || senator;
   },
+  updatePoliticianAnnouncement: async (req, res) => {
+    try {
+      const deputy = await Deputy.findById(req.user.politicianId).exec();
+      const senator = await Senator.findById(req.params.politicianId).exec();
+      const politician = deputy || senator;
+      if (politician) {
+        await politician.updateOne({ announcement: req.body.content });
+        res.send({ message: 'updated' });
+      } else {
+        res.status(400).send({ message: 'politician not found' })
+      }
+    } catch (error) {
+      console.log({ error });
+      res.status(400).send({ message: 'error' })
+    }
+  },
   getTop10: async (req, res) => {
     try {
       const deputies = await Deputy.find({}).sort({ influence: -1 }).limit(10);
@@ -135,20 +151,19 @@ const PoliticianService = {
     }
   },
   getActivePoliticians: async (req, res) => {
-    function compare( a, b ) {
-      return a.rate>b.rate? -1 : 1;
+    function compare(a, b) {
+      return a.rate > b.rate ? -1 : 1;
     }
     try {
       const users = await User.find().lean().exec();
-      console.log({users});
+      console.log({ users });
       var activeRate = [];
       for (var i = 0; i < users.length; i++) {
-          var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
-          console.log({ chats });
-          activeRate.push({mail: users[i].email, rate: chats.length});
-          console.log({activeRate});
+        var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
+        console.log({ chats });
+        activeRate.push({ mail: users[i].email, rate: chats.length });
+        console.log({ activeRate });
       }
-<<<<<<< HEAD
       activeRate.sort(compare);
       console.log(activeRate.slice(0, 10));
       res.json(activeRate.slice(0, 10));
@@ -157,24 +172,24 @@ const PoliticianService = {
     }
   },
   getActiveParties: async (req, res) => {
-    function compare( a, b ) {
-      return a.rate>b.rate? -1 : 1;
+    function compare(a, b) {
+      return a.rate > b.rate ? -1 : 1;
     };
     try {
       const users = await User.find().lean().exec();
-      console.log({users});
+      console.log({ users });
       var activeRate = [];
       for (var i = 0; i < users.length; i++) {
-          var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
-          console.log({ chats });
-          const deputy = await Deputy.findById(users[i].politicianId).lean().exec();
-          const senator = await Senator.findById(users[i].politicianId).lean().exec();
-          var politician = deputy || senator;
-          if(activeRate.includes({party: politician.party}))
-            activeRate[i].rate += chats.length;
-          else
-            activeRate.push({ party: politician.party, rate: chats.length});
-          console.log({activeRate});
+        var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
+        console.log({ chats });
+        const deputy = await Deputy.findById(users[i].politicianId).lean().exec();
+        const senator = await Senator.findById(users[i].politicianId).lean().exec();
+        var politician = deputy || senator;
+        if (activeRate.includes({ party: politician.party }))
+          activeRate[i].rate += chats.length;
+        else
+          activeRate.push({ party: politician.party, rate: chats.length });
+        console.log({ activeRate });
       }
       activeRate.sort(compare);
       console.log(activeRate.slice(0, 10));
@@ -184,35 +199,28 @@ const PoliticianService = {
     }
   },
   getActiveCounties: async (req, res) => {
-    function compare( a, b ) {
-      return a.rate>b.rate? -1 : 1;
+    function compare(a, b) {
+      return a.rate > b.rate ? -1 : 1;
     };
     try {
       const users = await User.find().lean().exec();
-      console.log({users});
+      console.log({ users });
       var activeRate = [];
       for (var i = 0; i < users.length; i++) {
-          var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
-          console.log({ chats });
-          const deputy = await Deputy.findById(users[i].politicianId).lean().exec();
-          const senator = await Senator.findById(users[i].politicianId).lean().exec();
-          var politician = deputy || senator;
-          if(activeRate.includes({county: politician.county}))
-            activeRate[i].rate += chats.length;
-          else
-            activeRate.push({ county: politician.county, rate: chats.length});
-          console.log({activeRate});
+        var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
+        console.log({ chats });
+        const deputy = await Deputy.findById(users[i].politicianId).lean().exec();
+        const senator = await Senator.findById(users[i].politicianId).lean().exec();
+        var politician = deputy || senator;
+        if (activeRate.includes({ county: politician.county }))
+          activeRate[i].rate += chats.length;
+        else
+          activeRate.push({ county: politician.county, rate: chats.length });
+        console.log({ activeRate });
       }
       activeRate.sort(compare);
       console.log(activeRate.slice(0, 10));
       res.json(activeRate.slice(0, 10));
-=======
-      activeRate.sort((a, b) => {
-        if (a[1] > b[1])
-          return a[1] > b[1] ? 1 : -1;
-      });
-      res.status(400).json(activeRate.slice(0, 10));
->>>>>>> c18524dd31c2a05f86dd385d48c75744e71ffd9f
     } catch (err) {
       res.status(400).json({ message: 'There has been an error' })
     }

@@ -18,6 +18,9 @@ let Deputy = new Schema({
   county: {
     type: String
   },
+  announcement: {
+    type: String
+  },
   pictureUrl: {
     type: String
   },
