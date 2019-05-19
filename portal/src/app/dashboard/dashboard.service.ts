@@ -40,10 +40,10 @@ export class DashboardService {
   }
 
   getAll() {
-    return this.http.get('http://192.168.6.203:2500/api/v1/politicians')
+    return this.http.get('http://192.168.6.203:2500/api/v1/politicians?page=0&size=8&name=')
   }
 
   getSearch(text: string) {
-    return this.http.get('http://192.168.6.203:2500/api/v1/politicians?name=' + text);
+    return this.http.get('http://192.168.6.203:2500/api/v1/politicians?page=0&size=8&name=' + text);
   }
 }

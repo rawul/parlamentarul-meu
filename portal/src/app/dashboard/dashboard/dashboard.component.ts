@@ -31,7 +31,9 @@ export class DashboardComponent implements OnInit {
   constructor(public dialog: MatDialog, private dashService: DashboardService) { }
 
   ngOnInit() {
-    this.seeAll();
+    this.dashService.getAll().subscribe((x: any) => {
+      this.politicians = x;
+    })
     this.dashService.getTop10().subscribe(x => {
       console.log(x);
       this.top10 = x;
