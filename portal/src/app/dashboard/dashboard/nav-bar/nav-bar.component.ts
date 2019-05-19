@@ -4,6 +4,7 @@ import { LoginModalComponent } from '../login-modal/login-modal.component';
 import { DashboardService } from '../../dashboard.service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faSortDown } from '@fortawesome/free-solid-svg-icons';
+import { faPowerOff } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,6 +16,7 @@ export class NavBarComponent implements OnInit {
   isLoggedIn: boolean = false;
   faUser = faUser;
   faSortDown = faSortDown;
+  faPowerOff = faPowerOff;
   pictureUrl: string = 'https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg';
   constructor(
     private dialog: MatDialog,
