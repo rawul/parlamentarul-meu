@@ -70,7 +70,7 @@ const MessageService = {
     let toSenderMail = transporter.sendMail({
       to: req.body.from,
       subject: req.body.subject,
-      html: `<p>Email-ul catre parlamentar a fost trimis cu success. Intra pe urmatorul link daca doresti sa continui discutia cu parlamentarul: <strong>http://localhost:4200/api/v1/chat/${token}</strong></p>`
+      html: `<p>Email-ul catre parlamentar a fost trimis cu success. Intra pe urmatorul link daca doresti sa continui discutia cu parlamentarul: <strong>http://localhost:4200/chat/${token}</strong></p>`
     }).then(async e => {
       let chat = new Chat({ url: token, subject: req.body.subject, politicianMail: req.body.to, userToken: token, messages: [req.body.content], letter: req.body.letter });
       if(filter.isSpam(req.body.content)){
@@ -95,12 +95,10 @@ const MessageService = {
     const politicianEmail = req.query.email;
     try {
       const chats = await Chat.find({ politicianMail: politicianEmail }).lean().exec();
-      console.log({ chats })
       for (var i = 0; i < chats.length; i++) {
         try {
           const messages = await Message.find({ chatURL: chats[i].url }).lean().exec();
           chats[i].messages = messages;
-          console.log({ messages, i })
         } catch (err) {
           res.status(400).json({ message: "Message could not be retrieved" });
         }
