@@ -36,12 +36,12 @@ export class ProfileModalComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.message);
     this.service.sendMessage({
       from: this.message.from,
       to: this.politician.email,
       subject: 'New Message',
-      content: this.message.msg
+      content: this.message.msg,
+      letter: this.message.letter
     }).subscribe(x => {
       console.log(x);
       this.dialog.close();
@@ -49,6 +49,7 @@ export class ProfileModalComponent implements OnInit {
       console.log(err);
     });
   }
+
   selectTab(index) {
     if (index == 1 && !this.politician.wealthDeclaration)
       return;
@@ -56,6 +57,11 @@ export class ProfileModalComponent implements OnInit {
       return;
     this.activeTab = index;
   }
+
+  showInfo() {
+    this.message.letter = !this.message.letter;
+  }
+
   photoURL(data) {
     console.log(this.sanitizer.bypassSecurityTrustUrl(data));
     return this.sanitizer.bypassSecurityTrustUrl(data);
