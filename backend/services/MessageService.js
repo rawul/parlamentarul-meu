@@ -8,6 +8,8 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const filter = require('./SpamFilter')
 
+const User = require('../models/UserModel');
+
 let transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
@@ -21,15 +23,15 @@ let transporter = nodemailer.createTransport(smtpTransport({
   }
 }));
 
-function exportAsPdf (mail, message) {
-  const options = { format: 'A4'}
+function exportAsPdf(mail, message) {
+  const options = { format: 'A4' }
   const dom = JSDOM.fromFile('./services/test.html', options).then(d => {
     d.window.document.getElementById("email-from").innerHTML = mail;
     d.window.document.getElementById("message").innerHTML = message;
     pdf.create(d.serialize(), options).toFile('./services/test.pdf', (err, res) => {
-    if (err) return console.log(err);
+      if (err) return console.log(err);
       console.log(res);
-  });
+    });
   });
 }
 
@@ -40,7 +42,7 @@ const Chat = require('../models/ChatModel');
 const MessageService = {
   sendMessage: async (req, res) => {
     if (req.body.to !== null) {
-      if(req.body.letter){
+      if (req.body.letter) {
         exportAsPdf(req.body.to, req.body.content);
         let toDeputyMail = transporter.sendMail({
           to: req.body.to,
@@ -49,18 +51,18 @@ const MessageService = {
           text: req.body.content,
           attachments: [
             {
-             path: './services/test.pdf'
+              path: './services/test.pdf'
             }
-         ]
+          ]
         });
       }
       else {
         let toDeputyMail = transporter.sendMail({
-        to: req.body.to,
-        cc: req.body.from,
-        subject: req.body.subject,
-        text: req.body.content,
-      });
+          to: req.body.to,
+          cc: req.body.from,
+          subject: req.body.subject,
+          text: req.body.content,
+        });
       }
     }
 
@@ -72,7 +74,7 @@ const MessageService = {
       html: `<p>Email-ul catre parlamentar a fost trimis cu success. Intra pe urmatorul link daca doresti sa continui discutia cu parlamentarul: <strong>http://localhost:4200/chat/${token}</strong></p>`
     }).then(async e => {
       let chat = new Chat({ url: token, subject: req.body.subject, politicianMail: req.body.to, userToken: token, messages: [req.body.content], letter: req.body.letter });
-      if(filter.isSpam(req.body.content)){
+      if (filter.isSpam(req.body.content)) {
         let spamMail = transporter.sendMail({
           to: req.body.from,
           subject: "Mesaj netrimis",
@@ -85,28 +87,36 @@ const MessageService = {
         await chat.save();
         await message.save();
         res.status(200).json()
-      }  
+      }
     }).catch(
       err => console.log(err)
     );
   },
   getMessages: async (req, res) => {
-    const politicianEmail = req.query.email;
-    try {
-      const chats = await Chat.find({ politicianMail: politicianEmail }).lean().exec();
-      for (var i = 0; i < chats.length; i++) {
-        try {
-          const messages = await Message.find({ chatURL: chats[i].url }).lean().exec();
-          chats[i].messages = messages;
-        } catch (err) {
-          res.status(400).json({ message: "Message could not be retrieved" });
+    const token = req.get('Authorization');
+    console.log(token);
+    const user = await User.findOne({ token : token });
+    console.log(user);
+    if (user) {
+      
+      const politicianEmail = req.query.email;
+      try {
+        const chats = await Chat.find({ politicianMail: politicianEmail }).lean().exec();
+        for (var i = 0; i < chats.length; i++) {
+          try {
+            const messages = await Message.find({ chatURL: chats[i].url }).lean().exec();
+            chats[i].messages = messages;
+          } catch (err) {
+            res.status(400).json({ message: "Message could not be retrieved" });
+          }
         }
+        res.status(200).json(chats);
+      } catch (err) {
+        console.log(err);
+        res.status(400).json({ message: 'Error retrieving chats' });
       }
-      res.status(200).json(chats);
-    } catch (err) {
-      console.log(err);
-      res.status(400).json({ message: 'Error retrieving chats' });
-    }
+    } else res.status(403).json();
+
   }
 }
 
