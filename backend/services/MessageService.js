@@ -30,7 +30,6 @@ function exportAsPdf(mail, message) {
     d.window.document.getElementById("message").innerHTML = message;
     pdf.create(d.serialize(), options).toFile('./services/test.pdf', (err, res) => {
       if (err) return console.log(err);
-      console.log(res);
     });
   });
 }
