@@ -26,6 +26,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.2",
     "add": "^2.0.6",
     "core-js": "^2.5.4",
+    "ng2-pdf-viewer": "^5.2.4",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "yarn": "^1.16.0",
