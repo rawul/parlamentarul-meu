@@ -38,6 +38,7 @@ const SenatorService = {
   },
 
   getByParty: async (req, res) => {
+    console.log(req.query.party);
     let party = req.query.party;
     Senator.find({ party: party}, (err, senators) => {
     if(err)
