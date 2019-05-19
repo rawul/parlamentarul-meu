@@ -38,6 +38,10 @@ export class DashboardComponent implements OnInit {
       console.log(x);
       this.top10 = x;
     });
+    this.dashService.getMostActive().subscribe((x: Politician[]) => {
+      console.log(x);
+      this.politicians = x;
+    });
   }
 
   loadPoliticians($event) {
@@ -46,6 +50,7 @@ export class DashboardComponent implements OnInit {
     this.judet = this.politicians[0].county;
     document.getElementById('panel2').scrollIntoView();
   }
+  
   seeAll() {
     this.dashService.getAll().subscribe((x: any) => {
       this.politicians = x;

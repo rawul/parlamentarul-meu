@@ -64,13 +64,13 @@
           </div>
           <div class="name">{{politician.name}}</div>
           <div class="role">{{politician.politicianType==='deputy'?'Deputat':'Senator'}} {{politician.party}}
-            <img src="../../../assets/usr-logo.jpg" style="height:20px" alt="" *ngIf="politician.party == 'USR'">
-            <img src="../../../assets/psd-logo.jpg" style="height:20px" alt="" *ngIf="politician.party == 'PSD'">
-            <img src="../../../assets/udmr-logo.jpg" style="height:20px" alt="" *ngIf="politician.party == 'UDMR'">
-            <img src="../../../assets/pmp-logo.png" style="height:20px" alt="" *ngIf="politician.party == 'PMP'">
-            <img src="../../../assets/pnl-logo.gif" style="height:20px" alt="" *ngIf="politician.party == 'PNL'">
-            <img src="../../../assets/alde-logo.png" style="height:20px" alt="" *ngIf="politician.party == 'ALDE'">
           </div>
+          <img src="../../../assets/usr-logo.jpg" style="height:20px" alt="" *ngIf="politician.party == 'USR'">
+          <img src="../../../assets/psd-logo.jpg" style="height:20px" alt="" *ngIf="politician.party == 'PSD'">
+          <img src="../../../assets/udmr-logo.jpg" style="height:20px" alt="" *ngIf="politician.party == 'UDMR'">
+          <img src="../../../assets/pmp-logo.png" style="height:20px" alt="" *ngIf="politician.party == 'PMP'">
+          <img src="../../../assets/pnl-logo.gif" style="height:20px" alt="" *ngIf="politician.party == 'PNL'">
+          <img src="../../../assets/alde-logo.png" style="height:20px" alt="" *ngIf="politician.party == 'ALDE'">
         </div>
         <div class="footer">
           <div class="profile-button" (click)="openDialog(politician,false)">Vezi profil</div>
@@ -106,13 +106,13 @@
     <div *ngIf="top10" style="width:100%;justify-content: space-evenly;" class="layout horizontal ">
       <div class="layout vertical metric-card">
         <span class="title">Partid</span>
-        <span class="record" *ngFor="let party of top10.parties;let i = index">
+        <span class="record" *ngFor="let party of top10.topParties;let i = index">
           <strong>{{i+1}}</strong>. {{party.name}}
         </span>
       </div>
       <div class="layout vertical metric-card">
         <span class="title">Judet</span>
-        <span style="text-transform: capitalize" class="record" *ngFor="let party of top10.counties;let i = index">
+        <span style="text-transform: capitalize" class="record" *ngFor="let party of top10.topCounties;let i = index">
           <strong>{{i+1}}</strong>. {{party.name}}
         </span>
       </div>

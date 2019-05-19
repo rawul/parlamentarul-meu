@@ -27,6 +27,10 @@ export class DashboardService {
     return this.http.get('http://192.168.6.203:2500/api/v1/politicians/top10');
   }
 
+  getMostActive() {
+    return this.http.get('http://192.168.6.203:2500/api/v1/politicians/active');
+  }
+
   getChats(email) {
     return this.http.get('http://192.168.6.203:2500/api/v1/chat/politician?email=' + email)
   }
