@@ -108,6 +108,24 @@
         <span class="title">Partid</span>
         <span class="record" *ngFor="let party of top10.topParties;let i = index">
           <strong>{{i+1}}</strong>. {{party.name}}
+          <div class="tooltip">
+            <div class="line">
+              <div class="field">Declaratii politice: </div>
+              <span class="value">{{party.activity.declaratiiPolitice}}</span>
+            </div>
+            <div class="line">
+              <div class="field">Intrebari si Interpolari: </div>
+              <span class="value">{{party.activity.intrebariSiInterpelari}}</span>
+            </div>
+            <div class="line">
+              <div class="field">Luari de cuvant: </div>
+              <span class="value">{{party.activity.luariDeCuvant.total}}</span>
+            </div>
+            <div class="line">
+              <div class="field">Propuneri Legislative: </div>
+              <span class="value">{{party.activity.declaratiiPolitice}}</span>
+            </div>
+          </div>
         </span>
       </div>
       <div class="layout vertical metric-card">
