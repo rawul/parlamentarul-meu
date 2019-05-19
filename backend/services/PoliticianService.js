@@ -161,8 +161,8 @@ const PoliticianService = {
       for (var i = 0; i < users.length; i++) {
         var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
         console.log({ chats });
-        activeRate.push({ mail: users[i].email, rate: chats.length });
-        console.log({ activeRate });
+        activeRate.push({ user: users[i], rate: chats.length });
+        console.log({ activeRate});
       }
       activeRate.sort(compare);
       console.log(activeRate.slice(0, 10));
