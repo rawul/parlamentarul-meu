@@ -3,11 +3,11 @@ const Senator = require('./models/SenatorModel');
 const User = require('./models/UserModel');
 const generator = require('generate-password');
 
-User.collection.drop();
-Deputy.collection.drop();
-Senator.collection.drop();
 
 (async () => {
+    await User.deleteMany({});
+    await Deputy.deleteMany({});
+    await Senator.deleteMany({});
 
     Senator.collection.insertMany(require('../scarping/people_info/dump/senators'));
 
