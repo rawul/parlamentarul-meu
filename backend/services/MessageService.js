@@ -23,15 +23,17 @@ let transporter = nodemailer.createTransport(smtpTransport({
   }
 }));
 
-function exportAsPdf(mail, message) {
-  const options = { format: 'A4' }
-  const dom = JSDOM.fromFile('./services/test.html', options).then(d => {
-    d.window.document.getElementById("email-from").innerHTML = mail;
-    d.window.document.getElementById("message").innerHTML = message;
-    pdf.create(d.serialize(), options).toFile('./services/test.pdf', (err, res) => {
+const exportAsPdf = async (mail, message) => {
+  return new Promise(async (resolve, reject) => {
+    const options = { format: 'A4' }
+    const dom = await JSDOM.fromFile('./services/test.html', options);
+    dom.window.document.getElementById("email-from").innerHTML = mail;
+    dom.window.document.getElementById("message").innerHTML = message;
+    pdf.create(dom.serialize(), options).toFile('./services/test.pdf', (err, res) => {
+      resolve()
       if (err) return console.log(err);
     });
-  });
+  })
 }
 
 
@@ -42,7 +44,8 @@ const MessageService = {
   sendMessage: async (req, res) => {
     if (req.body.to !== null) {
       if (req.body.letter) {
-        exportAsPdf(req.body.to, req.body.content);
+        await exportAsPdf(req.body.to, req.body.content);
+        console.log('after export')
         let toDeputyMail = transporter.sendMail({
           to: req.body.to,
           cc: req.body.from,
