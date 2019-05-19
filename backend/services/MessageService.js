@@ -95,10 +95,10 @@ const MessageService = {
   getMessages: async (req, res) => {
     const token = req.get('Authorization');
     console.log(token);
-    const user = await User.findOne({ token : token });
+    const user = await User.findOne({ token: token });
     console.log(user);
     if (user) {
-      
+
       const politicianEmail = req.query.email;
       try {
         const chats = await Chat.find({ politicianMail: politicianEmail }).lean().exec();

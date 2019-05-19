@@ -165,8 +165,11 @@ const PoliticianService = {
         console.log({ activeRate});
       }
       activeRate.sort(compare);
-      console.log(activeRate.slice(0, 10));
-      res.json(activeRate.slice(0, 10));
+      var selectedUsers = [];
+      for (var i = 0; i < 10; i++) {
+        selectedUsers.push(activeRate[i].user);
+      }
+      res.json(selectedUsers);
     } catch (err) {
       res.status(400).json({ message: 'There has been an error' })
     }
