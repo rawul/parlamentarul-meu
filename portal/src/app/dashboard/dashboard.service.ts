@@ -60,4 +60,7 @@ export class DashboardService {
   getAnnouncements() {
     return this.http.get('http://192.168.6.203:2500/api/v1/politician/announcement');
   }
+  getMore(pageIndex) {
+    return this.http.get('http://192.168.6.203:2500/api/v1/politicians?page=' + pageIndex + '&size=8&name=')
+  }
 }

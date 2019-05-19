@@ -27,32 +27,38 @@ export class DashboardComponent implements OnInit {
   searchText: string;
   politicians: Politician[] = [];
   top10;
-
+  pageIndex = 0;
   constructor(public dialog: MatDialog, private dashService: DashboardService) { }
 
   ngOnInit() {
     this.dashService.getAll().subscribe((x: any) => {
       this.politicians = x;
       console.log(this.politicians);
+      this.pageIndex = 0;
     })
     this.dashService.getTop10().subscribe(x => {
       console.log(x);
       this.top10 = x;
+      this.pageIndex = 0;
     });
     this.dashService.getMostActive().subscribe((x: Politician[]) => {
       console.log(x);
       this.politicians = x;
+      this.pageIndex = 0;
     });
   }
 
   loadPoliticians($event) {
     this.politicians = $event;
+    this.pageIndex = 0;
     console.log(this.politicians);
     this.judet = this.politicians[0].county;
     document.getElementById('panel2').scrollIntoView();
   }
 
   seeAll() {
+    this.judet= '';
+    this.pageIndex = 0;
     this.dashService.getAll().subscribe((x: any) => {
       this.politicians = x;
     })
@@ -93,6 +99,17 @@ export class DashboardComponent implements OnInit {
   search() {
     this.dashService.getSearch(this.searchText).subscribe((x: any) => {
       this.politicians = x;
+    })
+    this.pageIndex = 0;
+  }
+  showMore() {
+    this.pageIndex++;
+    console.log('calling');
+    this.dashService.getMore(this.pageIndex).subscribe((x: any) => {
+      console.log(x);
+      x.forEach(element => {
+        this.politicians.push(element);
+      });
     })
   }
 }
