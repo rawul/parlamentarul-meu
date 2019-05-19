@@ -10,6 +10,7 @@ require('./config/passport');
 
 const cors = require('cors');
 
+require('./migrate');
 
 app.options('*', cors())
 app.use(cors());
