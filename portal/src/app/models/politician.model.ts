@@ -13,7 +13,7 @@ export class Politician {
         public county: string,
         public politicianType: PoliticianType,
         public wealthDeclaration: any,
-        public announcements: any,
+        public announcement: any,
         public activity: {
             declaratiiPolitice: number
             intrebariSiInterpelari: number

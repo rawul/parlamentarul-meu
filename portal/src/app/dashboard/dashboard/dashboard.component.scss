@@ -20,7 +20,6 @@
   font-size: 20px;
   font-weight: 200;
   animation: fadein 3s;
-
 }
 
 .logo-text-2 {
@@ -30,7 +29,6 @@
   font-weight: 100;
   font-size: 18px;
   animation: fadein 5s;
-
 }
 
 .politician {
@@ -68,7 +66,7 @@
         width: 80px;
         height: 80px;
         border-radius: 50%;
-        transition: .5s;
+        transition: 0.5s;
       }
     }
 
@@ -113,7 +111,6 @@
   }
 }
 
-
 /deep/ .mat-dialog-container {
   padding: 0 !important;
 }
@@ -154,7 +151,7 @@
     flex-direction: row;
     padding: 15px;
     font-size: 15px;
-
+    position: relative;
     &:nth-child(odd) {
       background-color: #ffad0024;
     }
@@ -167,5 +164,42 @@
     text-align: center;
     font-weight: bold;
     border-bottom: 2px solid #ffad00;
+  }
+}
+
+.tooltip {
+  width: 200px;
+  background-color: white;
+  position: absolute;
+  right: 10px;
+  z-index: 12042034023;
+  top: -50px;
+  display: none;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
+  .field {
+    margin-bottom: 5px;
+  }
+  .value{
+    font-weight: 600;
+  }
+  .line {
+    display: flex;
+    justify-content: space-between;
+  }
+  &::before {
+    content: "";
+  }
+}
+.record:hover {
+  .tooltip {
+    display: flex;
   }
 }

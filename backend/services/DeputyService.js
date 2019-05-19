@@ -28,7 +28,6 @@ const DeputyService = {
     }
   },
   getDeputyById: async (req, res) => {
-    console.log(req.params.id);
     Deputy.findById(req.params.id, (error, deputy) => {
       if (error) {
         console.log(error);
@@ -41,7 +40,6 @@ const DeputyService = {
     let party = req.query.party;
     const page = req.query.page;
     const size = req.query.size;
-    console.log(party);
     try {
       let deputies = await Deputy.find({ party }).skip(parseInt(size * page)).limit(parseInt(size)).lean().exec();
       res.status(200).json(deputies);

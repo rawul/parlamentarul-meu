@@ -81,7 +81,6 @@ const ChatService = {
     }
   },
   getChatByToken: async (req, res) => {
-    console.log(req.user);
     const token = req.params.token;
     try {
       let chat = await Chat.findOne({ userToken: token }).lean().exec();

@@ -16,13 +16,10 @@ mongoose.connect(config.DB, { useNewUrlParser: true, useCreateIndex: true, }).th
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-require('./migrate');
-
-
 app.listen(PORT, function () {
   console.log('Server is running on Port:', PORT);
 });
 
 app.use(async (req, res) => {
-  res.status(500).json({ message: 'Server error' });
+  res.status(404).json({ message: 'Invalid route' });
 })
