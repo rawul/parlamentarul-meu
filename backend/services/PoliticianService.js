@@ -167,7 +167,7 @@ const PoliticianService = {
       }
       activeRate.sort(compare);
       var selectedUsers = [];
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 8; i++) {
         selectedUsers.push(activeRate[i].user);
       }
       res.json(selectedUsers);

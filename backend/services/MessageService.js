@@ -49,7 +49,7 @@ const MessageService = {
         let toDeputyMail = transporter.sendMail({
           to: req.body.to,
           cc: req.body.from,
-          subject: req.body.subject,
+          subject: 'O noua scrisoare a fost generata',
           text: req.body.content,
           attachments: [
             {
@@ -58,21 +58,13 @@ const MessageService = {
           ]
         });
       }
-      else {
-        let toDeputyMail = transporter.sendMail({
-          to: req.body.to,
-          cc: req.body.from,
-          subject: req.body.subject,
-          text: req.body.content,
-        });
-      }
     }
 
     let token = uuidv4();
 
     let toSenderMail = transporter.sendMail({
       to: req.body.from,
-      subject: req.body.subject,
+      subject: 'Confirmare trimitere mesaj parlamentar',
       html: `<p>Email-ul catre parlamentar a fost trimis cu success. Intra pe urmatorul link daca doresti sa continui discutia cu parlamentarul: <strong>http://localhost:4200/chat/${token}</strong></p>`
     }).then(async e => {
       let chat = new Chat({ url: token, subject: req.body.subject, politicianMail: req.body.to, userToken: token, messages: [req.body.content], letter: req.body.letter });
