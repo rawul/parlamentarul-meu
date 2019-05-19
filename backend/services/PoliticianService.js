@@ -75,7 +75,7 @@ const PoliticianService = {
 
           if (party) {
             party.influence += deputy.influence || 0;
-  
+
             party.activity.luariDeCuvant.total += deputy.activity.luariDeCuvant.total || 0;
             party.activity.luariDeCuvant.sedinte += deputy.activity.luariDeCuvant.sedinte || 0;
             party.activity.declaratiiPolitice += deputy.activity.declaratiiPolitice || 0;
@@ -139,7 +139,7 @@ const PoliticianService = {
     const page = parseInt(req.query.page);
     const deputiesSize = parseInt(req.query.size) / 2;
     const senatorsSize = parseInt(req.query.size) - deputiesSize;
-    
+
     try {
       const deputies = await Deputy.find({ normalizedName: new RegExp('^' + name, "ig") }).skip(page * deputiesSize).limit(deputiesSize).lean().exec();
       const senators = await Senator.find({ normalizedName: new RegExp('^' + name, "ig") }).skip(page * senatorsSize).limit(senatorsSize).lean().exec();
@@ -153,7 +153,13 @@ const PoliticianService = {
       return a.rate > b.rate ? -1 : 1;
     }
     try {
-      const users = await User.find().lean().exec();
+      const usersCollection = (await User.find().lean().exec());
+      let users = []
+      for (let user of usersCollection) {
+        const politician = await PoliticianService.getPoliticianByUser(user);
+        users.push({ ...user, ...politician });
+      }
+
       var activeRate = [];
       for (var i = 0; i < users.length; i++) {
         var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
