@@ -10,7 +10,7 @@
       <div class="tab" [ngClass]="{'active-tab': activeTab == 0}" (click)="selectTab(0)">Detalii</div>
       <div class="tab" [ngClass]="{'active-tab': activeTab == 1, 'disabled-tab': !politician.wealthDeclaration}"
         (click)="selectTab(1)">Declaratie</div>
-      <div class="tab" [ngClass]="{'active-tab': activeTab == 2, 'disabled-tab': !politician.announcements}"
+      <div class="tab" [ngClass]="{'active-tab': activeTab == 2, 'disabled-tab': !politician.announcement}"
         (click)="selectTab(2)">Anunturi</div>
     </div>
   </div>
@@ -69,15 +69,7 @@
   </div>
   <div class="details flex-1" *ngIf="activeTab == 2" style="height:500px">
     <div class="announcement">
-      Dragnea vrea sa il lasati in pace
-      Dragnea vrea sa il lasati in pace
-      Dragnea vrea sa il lasati in pace
-      Dragnea vrea sa il lasati in pace
-      Dragnea vrea sa il lasati in pace
-      Dragnea vrea sa il lasati in pace
-      Dragnea vrea sa il lasati in pace
-      Dragnea vrea sa il lasati in pace
-      Dragnea vrea sa il lasati in pace
+      {{politician.announcement}}
     </div>
   </div>
 </div>

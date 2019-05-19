@@ -32,7 +32,8 @@ export class DashboardService {
   }
 
   getChats(email) {
-    return this.http.get('http://192.168.6.203:2500/api/v1/chat/politician?email=' + email)
+    let header = new HttpHeaders({ 'authorization': localStorage.getItem('token') });
+    return this.http.get('http://192.168.6.203:2500/api/v1/chat/politician?email=' + email, { headers: header })
   }
 
   getChatByToken(token: string) {
