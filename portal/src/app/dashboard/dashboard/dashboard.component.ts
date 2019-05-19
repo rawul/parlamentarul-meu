@@ -49,7 +49,6 @@ export class DashboardComponent implements OnInit {
       this.politicians = x;
     })
     document.getElementById('panel2').scrollIntoView();
-
   }
 
   scrollTo(ev) {

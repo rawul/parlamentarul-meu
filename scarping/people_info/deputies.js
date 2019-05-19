@@ -18,7 +18,7 @@ const getPersonDetails = async ($, row) => {
     if (name && party && address) {
         console.log(`${domain}${$(row).find('a').attr('href')}`)
         const personData = await getPersonData(`${domain}${$(row).find('a').attr('href')}`);
-        return { name, party, email, address, ...personData, politicianType };
+        return { name, party, email, address, ...personData, politicianType, normalizedName: removeAccents(name).toLowerCase() };
     }
     return [];
 }
@@ -62,13 +62,13 @@ const getPersonData = async (personLink) => {
             intrebariSiInterpelari: 0
         });
 
-    const score =
+    const influence =
         activities.declaratiiPolitice * 0.05 +
         activities.propuneriLegislative.promulgate * 0.4 +
         (activities.propuneriLegislative.total > 0 ? (activities.propuneriLegislative.promulgate / activities.propuneriLegislative.total) * 0.3 : 0) +
         activities.propuneriDeHotarare * 0.2;
-    console.log({ score })
-    return { pictureUrl: `${domain}${relativeLink}`, activity: activities, score };
+
+    return { pictureUrl: `${domain}${relativeLink}`, activity: activities, influence };
 }
 
 const getGeneralPeopleInformation = async () => {
