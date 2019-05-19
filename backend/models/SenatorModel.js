@@ -15,6 +15,9 @@ let Senator = new Schema({
   county: {
     type: String
   },
+  announcement: {
+    type: String
+  },
   pictureURL: {
     type: String
   }
