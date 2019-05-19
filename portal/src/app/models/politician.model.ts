@@ -12,7 +12,8 @@ export class Politician {
         public imageUrl: string,
         public county: string,
         public politicianType: PoliticianType,
-        public announcements: string,
+        public wealthDeclaration: any,
+        public announcements: any,
         public activity: {
             declaratiiPolitice: number
             intrebariSiInterpelari: number

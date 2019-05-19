@@ -55,4 +55,8 @@ export class DashboardService {
     let header = new HttpHeaders({ 'authorization': localStorage.getItem('token') });
     return this.http.post('http://192.168.6.203:2500/api/v1/politician/announcement', { content }, { headers: header });
   }
+
+  getAnnouncements() {
+    return this.http.get('http://192.168.6.203:2500/api/v1/politician/announcement');
+  }
 }

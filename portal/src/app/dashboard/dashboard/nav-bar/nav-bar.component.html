@@ -17,7 +17,13 @@
     <!-- <fa-icon [icon]="faSortDown" class="fa-md"></fa-icon> -->
   </div>
   <mat-menu #appMenu="matMenu">
-    <button mat-menu-item class="menu-item" routerLink="/politicians/profile">Profil</button>
-    <button mat-menu-item class="menu-item" (click)="logout()">Log Out</button>
+    <button mat-menu-item class="menu-item" routerLink="/politicians/profile">
+      <span>Profil</span>
+      <fa-icon [icon]="faUser" class="fa-md"></fa-icon>
+    </button>
+    <button mat-menu-item class="menu-item" (click)="logout()">
+      <span>Log Out</span>
+      <fa-icon [icon]="faPowerOff" class="fa-md"></fa-icon>
+    </button>
   </mat-menu>
 </div>
