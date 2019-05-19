@@ -107,7 +107,10 @@
       <div class="layout vertical metric-card">
         <span class="title">Partid</span>
         <span class="record" *ngFor="let party of top10.topParties;let i = index">
-          <strong>{{i+1}}</strong>. {{party.name}}
+          <div><strong>{{i+1}}</strong>. {{party.name}}</div>
+          <div class="info-button">
+            info button
+          </div>
           <div class="tooltip">
             <div class="line">
               <div class="field">Declaratii politice: </div>
@@ -131,13 +134,38 @@
       <div class="layout vertical metric-card">
         <span class="title">Judet</span>
         <span style="text-transform: capitalize" class="record" *ngFor="let party of top10.topCounties;let i = index">
-          <strong>{{i+1}}</strong>. {{party.name}}
+          <div>
+            <strong>{{i+1}}</strong>. {{party.name}}
+          </div>
+          <div class="info-button">
+            info button
+          </div>
+          <div class="tooltip">
+            <div class="line">
+              <div class="field">Declaratii politice: </div>
+              <span class="value">{{party.activity.declaratiiPolitice}}</span>
+            </div>
+            <div class="line">
+              <div class="field">Intrebari si Interpolari: </div>
+              <span class="value">{{party.activity.intrebariSiInterpelari}}</span>
+            </div>
+            <div class="line">
+              <div class="field">Luari de cuvant: </div>
+              <span class="value">{{party.activity.luariDeCuvant.total}}</span>
+            </div>
+            <div class="line">
+              <div class="field">Propuneri Legislative: </div>
+              <span class="value">{{party.activity.declaratiiPolitice}}</span>
+            </div>
+          </div>
         </span>
       </div>
       <div class="layout vertical metric-card">
         <span class="title">Individual</span>
         <span style="text-transform: capitalize" class="record" *ngFor="let dep of top10.deputies;let i = index">
-          <strong>{{i+1}}</strong>. {{dep.name }} <strong class="ml-5-1 mr-5-1">{{ dep.party}}</strong>{{ dep.county}}
+          <div>
+            <strong>{{i+1}}</strong>. {{dep.name }} <strong class="ml-5-1 mr-5-1">{{ dep.party}}</strong>{{ dep.county}}
+          </div>
         </span>
       </div>
     </div>
