@@ -63,7 +63,14 @@
             <img src="{{politician.pictureUrl}}" alt="">
           </div>
           <div class="name">{{politician.name}}</div>
-          <div class="role">{{politician.politicianType==='deputy'?'Deputat':'Senator'}} {{politician.party}}</div>
+          <div class="role">{{politician.politicianType==='deputy'?'Deputat':'Senator'}} {{politician.party}}
+            <img src="../../../assets/usr-logo.jpg" style="height:20px" alt="" *ngIf="politician.party == 'USR'">
+            <img src="../../../assets/psd-logo.jpg" style="height:20px" alt="" *ngIf="politician.party == 'PSD'">
+            <img src="../../../assets/udmr-logo.jpg" style="height:20px" alt="" *ngIf="politician.party == 'UDMR'">
+            <img src="../../../assets/pmp-logo.png" style="height:20px" alt="" *ngIf="politician.party == 'PMP'">
+            <img src="../../../assets/pnl-logo.gif" style="height:20px" alt="" *ngIf="politician.party == 'PNL'">
+            <img src="../../../assets/alde-logo.png" style="height:20px" alt="" *ngIf="politician.party == 'ALDE'">
+          </div>
         </div>
         <div class="footer">
           <div class="profile-button" (click)="openDialog(politician,false)">Vezi profil</div>
