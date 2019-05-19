@@ -1,4 +1,5 @@
 const express = require('express');
+const removeAccents = require('remove-accents');
 
 let Deputy = require('../models/DeputyModel');
 let Senator = require('../models/SenatorModel');
@@ -29,10 +30,11 @@ const PoliticianService = {
     }
   },
   getPoliticiansByName: async (req, res) => {
-    const name = req.query.name;
+    const name = removeAccents(req.query.name);
+    console.log(name);
     try {
-      const deputies = await Deputy.find({ name : new RegExp('^' + name, 'ig')}).lean().exec();
-      const senators = await Senator.find({ name : new RegExp('^' + name, 'ig')}).lean().exec();
+      const deputies = await Deputy.find({ normalizedName : new RegExp('^' + name, "ig")}).lean().exec();
+      const senators = await Senator.find({ normalizedName : new RegExp('^' + name, "ig")}).lean().exec();
       res.json([...deputies, ...senators])
     } catch (err) {
       res.status(400).json({ message: 'Error when retrieving politicians by name' })
@@ -42,4 +44,3 @@ const PoliticianService = {
 
 module.exports = PoliticianService;
 
-//new RegExp('^'+name, "ig") 
