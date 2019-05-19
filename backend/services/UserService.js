@@ -32,8 +32,7 @@ const UserService = {
         }
       }
       activeRate.sort((a,b) => {
-        if(a[1] > b[1])
-          return a[1] > b[1] ? -1 : 1;
+        return a[1] > b[1] ? -1 : 1;
       });
       res.status(400).json(activeRate.slice(0, 10));
     } catch (err) {
