@@ -22,5 +22,4 @@ Senator.collection.drop();
         .forEach((politician) => {
             User.register({ username: politician.name, email: politician.email, token: '123', politicianId: politician._id }, generator.generate({ length: 10, numbers: true }))
         });
-    console.log()
 })()

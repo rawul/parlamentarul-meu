@@ -39,11 +39,10 @@ const SenatorService = {
   },
 
   getByParty: async (req, res) => {
-    console.log(req.query.party);
     let party = req.query.party;
     const page = req.query.page;
     const size = req.query.size;
-    console.log(party);
+    
     try {
       let senators = await Senator.find({ party }).skip(parseInt(size * page)).limit(parseInt(size)).lean().exec();
       res.status(200).json(senators);
@@ -53,11 +52,9 @@ const SenatorService = {
     }
   },
   getByDistrict: async (req, res) => {
-    console.log(req.query.district);
     let district = req.query.district;
     const page = req.query.page;
     const size = req.query.size;
-    console.log(district);
     try {
       let senators = await Senator.find({ district }).skip(parseInt(size * page)).limit(parseInt(size)).lean().exec();
       res.status(200).json(senators);

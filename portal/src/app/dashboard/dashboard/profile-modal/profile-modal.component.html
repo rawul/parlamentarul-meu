@@ -87,8 +87,8 @@
       <mat-error *ngIf="email.errors && email.errors.required">Camp obligatoriu</mat-error>
       <mat-error *ngIf="email.errors &&  email.errors.email">Email invalid</mat-error>
     </mat-form-field>
-    <mat-checkbox (change)="message.letter=!message.letter" [disabled]="politician.email? false:true"
-      [checked]="message.email? message.letter:true" name="letter" class="mt-auto mb-10-1" style="font-size: 12px">Vrei
+    <mat-checkbox (change)="showInfo()" [disabled]="politician.email? false:true"
+      [checked]="politician.email? message.letter : true" name="letter" class="mt-auto mb-10-1" style="font-size: 12px">Vrei
       sa
       trimitem acest
       mesaj
