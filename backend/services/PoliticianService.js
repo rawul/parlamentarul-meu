@@ -148,17 +148,63 @@ const PoliticianService = {
           activeRate.push({mail: users[i].email, rate: chats.length});
           console.log({activeRate});
       }
-<<<<<<< HEAD
       activeRate.sort(compare);
       console.log(activeRate.slice(0, 10));
       res.json(activeRate.slice(0, 10));
-=======
-      activeRate.sort((a, b) => {
-        if (a[1] > b[1])
-          return a[1] > b[1] ? 1 : -1;
-      });
-      res.status(400).json(activeRate.slice(0, 10));
->>>>>>> 4d39afc625cffbd277fefc68af30d540cfde4bfe
+    } catch (err) {
+      res.status(400).json({ message: 'There has been an error' })
+    }
+  },
+  getActiveParties: async (req, res) => {
+    function compare( a, b ) {
+      return a.rate>b.rate? -1 : 1;
+    };
+    try {
+      const users = await User.find().lean().exec();
+      console.log({users});
+      var activeRate = [];
+      for (var i = 0; i < users.length; i++) {
+          var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
+          console.log({ chats });
+          const deputy = await Deputy.findById(users[i].politicianId).lean().exec();
+          const senator = await Senator.findById(users[i].politicianId).lean().exec();
+          var politician = deputy || senator;
+          if(activeRate.includes({party: politician.party}))
+            activeRate[i].rate += chats.length;
+          else
+            activeRate.push({ party: politician.party, rate: chats.length});
+          console.log({activeRate});
+      }
+      activeRate.sort(compare);
+      console.log(activeRate.slice(0, 10));
+      res.json(activeRate.slice(0, 10));
+    } catch (err) {
+      res.status(400).json({ message: 'There has been an error' })
+    }
+  },
+  getActiveCounties: async (req, res) => {
+    function compare( a, b ) {
+      return a.rate>b.rate? -1 : 1;
+    };
+    try {
+      const users = await User.find().lean().exec();
+      console.log({users});
+      var activeRate = [];
+      for (var i = 0; i < users.length; i++) {
+          var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
+          console.log({ chats });
+          const deputy = await Deputy.findById(users[i].politicianId).lean().exec();
+          const senator = await Senator.findById(users[i].politicianId).lean().exec();
+          var politician = deputy || senator;
+          if(activeRate.includes({county: politician.county}))
+            activeRate[i].rate += chats.length;
+          else
+            activeRate.push({ county: politician.county, rate: chats.length});
+          console.log({activeRate});
+      }
+      activeRate.sort(compare);
+      console.log(activeRate.slice(0, 10));
+      res.json(activeRate.slice(0, 10));
     } catch (err) {
       res.status(400).json({ message: 'There has been an error' })
     }
@@ -166,4 +212,3 @@ const PoliticianService = {
 }
 
 module.exports = PoliticianService;
-
