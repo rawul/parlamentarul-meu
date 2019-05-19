@@ -6,7 +6,8 @@ const Schema = mongoose.Schema;
 
 let Deputy = new Schema({
   name: {
-    type: String
+    type: String,
+    index: true
   },
   party: {
     type: String

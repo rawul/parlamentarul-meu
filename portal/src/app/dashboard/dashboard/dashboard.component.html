@@ -28,7 +28,7 @@
     border-radius: 5px;
     border: 1px solid black;" class="see-all" (click)="seeAll()"> Vezi toti parlamentarii</span>
   </div>
-  <div class="layout vertical center" id="panel2" style="height: calc(100vh - 64px)">
+  <div class="layout vertical center" id="panel2" style="min-height: calc(100vh - 64px)">
     <!-- <span class="brake-line"></span> -->
     <span *ngIf="!judet" style="text-align: center;
     margin: 80px 10px 10px;
@@ -78,6 +78,50 @@
         </div>
       </div>
 
+    </div>
+
+  </div>
+  <div class="layout vertical center" id="panel3"
+    style="background-position-x: -1000px;
+    background-position-y: -1200px;background-image:url(../../../assets/background.png);min-height: calc(100vh - 64px)">
+    <span style="text-align: center;
+    margin: 10px 10px;
+    font-weight: 300;
+    font-size: 30px;
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;">Top <strong>10</strong> Influenta</span>
+    <span style="color: white;
+    background-color: #000000;
+    padding: 6px;
+    font-size: 13px;
+    margin-top: 5px;
+    border-radius: 6px;">Influenta este calculata in functie de: declaratii politice,
+      intrebari si interpelari,
+      luari de cuvant,
+      motiuni,
+      propuneri de hotarare si
+      propuneri legislative</span>
+    <div *ngIf="top10" style="width:100%;justify-content: space-evenly;" class="layout horizontal ">
+      <div class="layout vertical metric-card">
+        <span class="title">Partid</span>
+        <span class="record" *ngFor="let party of top10.parties;let i = index">
+          <strong>{{i+1}}</strong>. {{party.name}}
+        </span>
+      </div>
+      <div class="layout vertical metric-card">
+        <span class="title">Judet</span>
+        <span style="text-transform: capitalize" class="record" *ngFor="let party of top10.counties;let i = index">
+          <strong>{{i+1}}</strong>. {{party.name}}
+        </span>
+      </div>
+      <div class="layout vertical metric-card">
+        <span class="title">Individual</span>
+        <span style="text-transform: capitalize" class="record" *ngFor="let dep of top10.deputies;let i = index">
+          <strong>{{i+1}}</strong>. {{dep.name }} <strong class="ml-5-1 mr-5-1">{{ dep.party}}</strong>{{ dep.county}}
+        </span>
+      </div>
     </div>
 
   </div>

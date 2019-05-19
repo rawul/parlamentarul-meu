@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 let Senator = new Schema({
   name: {
-    type: String
+    type: String,
+    index: true
   },
   party: {
     type: String
@@ -20,5 +21,6 @@ let Senator = new Schema({
 }, {
     collection: 'senators'
   });
+
 
 module.exports = mongoose.model('Senator', Senator);
