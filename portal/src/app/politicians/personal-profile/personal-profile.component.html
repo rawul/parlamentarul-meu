@@ -2,7 +2,6 @@
 <div id="panel0" class="profile-wrapper">
   <div
     style="background-image:url(../../../../assets/background.png);height: 250px;width: 100%;background-position-y: -900px;">
-
     <div class="img-wrapper">
       <img src="{{politician.pictureUrl}}" alt="">
     </div>
@@ -12,7 +11,8 @@
   margin-top: -80px;
   margin-left: 330px; align-items: center;padding:0px 10px;">
     <div class="name">{{politician.name}} - <span style="font-weight: 200">{{politician.email}}</span></div>
-    <div class="ml-auto position">{{politician.politicianType === 'deputy'? 'Deputat':'Senator'}} <strong>{{politician.party}}</strong>
+    <div class="ml-auto position">{{politician.politicianType === 'deputy'? 'Deputat':'Senator'}}
+      <strong>{{politician.party}}</strong>
       {{politician.county}}</div>
   </div>
   <div class="layout horizontal" style="color:white;    background-color: black;
@@ -20,6 +20,7 @@
   align-items: center;
   padding: 0px 10px;">
     <div class="name">{{politician.address}}</div>
+    <button (click)="openAnuntDialog()" class="btn2 ml-auto">Anunt</button>
   </div>
   <div>
     <span style="    font-weight: 300;

@@ -13,15 +13,16 @@ import { MatDialogModule, MatInputModule, MatButtonModule, MatMenuModule, MatChe
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { AnuntDialogComponent } from './anunt-dialog/anunt-dialog.component';
+import { DashboardService } from '../dashboard/dashboard.service';
 
 @NgModule({
-  declarations: [PoliticiansComponent, PersonalProfileComponent, NavBarComponent, ChatComponent],
+  declarations: [PoliticiansComponent, PersonalProfileComponent, NavBarComponent, ChatComponent, AnuntDialogComponent],
   imports: [
     CommonModule,
     PoliticiansRoutingModule,
     MatTabsModule,
     FontAwesomeModule,
-    MatDialogModule,
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
@@ -32,7 +33,10 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatCheckboxModule,
     TextFieldModule,
     FontAwesomeModule,
-    MatTooltipModule
-  ]
+    MatTooltipModule,
+    MatDialogModule
+  ],
+  providers: [DashboardService],
+  entryComponents: [AnuntDialogComponent]
 })
 export class PoliticiansModule { }

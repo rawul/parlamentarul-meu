@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +32,8 @@ export class DashboardService {
   }
 
   getChats(email) {
-    return this.http.get('http://192.168.6.203:2500/api/v1/chat/politician?email=' + email)
+    let header = new HttpHeaders({ 'authorization': localStorage.getItem('token') });
+    return this.http.get('http://192.168.6.203:2500/api/v1/chat/politician?email=' + email, { headers: header })
   }
 
   getChatByToken(token: string) {
@@ -50,6 +51,12 @@ export class DashboardService {
   getSearch(text: string) {
     return this.http.get('http://192.168.6.203:2500/api/v1/politicians?page=0&size=8&name=' + text);
   }
+
+  postAnnouncement(content) {
+    let header = new HttpHeaders({ 'authorization': localStorage.getItem('token') });
+    return this.http.post('http://192.168.6.203:2500/api/v1/politician/announcement', { content }, { headers: header });
+  }
+
   getAnnouncements() {
     return this.http.get('http://192.168.6.203:2500/api/v1/politician/announcement');
   }

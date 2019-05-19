@@ -52,7 +52,7 @@ export class ProfileModalComponent implements OnInit {
   selectTab(index) {
     if (index == 1 && !this.politician.wealthDeclaration)
       return;
-    if (index == 2 && !this.politician.announcements)
+    if (index == 2 && !this.politician.announcement)
       return;
     this.activeTab = index;
   }
