@@ -93,30 +93,22 @@ const MessageService = {
     );
   },
   getMessages: async (req, res) => {
-    const token = req.get('Authorization');
-    console.log(token);
-    const user = await User.findOne({ token : token });
-    console.log(user);
-    if (user) {
-      
-      const politicianEmail = req.query.email;
-      try {
-        const chats = await Chat.find({ politicianMail: politicianEmail }).lean().exec();
-        for (var i = 0; i < chats.length; i++) {
-          try {
-            const messages = await Message.find({ chatURL: chats[i].url }).lean().exec();
-            chats[i].messages = messages;
-          } catch (err) {
-            res.status(400).json({ message: "Message could not be retrieved" });
-          }
+    const politicianEmail = req.query.email;
+    try {
+      const chats = await Chat.find({ politicianMail: politicianEmail }).lean().exec();
+      for (var i = 0; i < chats.length; i++) {
+        try {
+          const messages = await Message.find({ chatURL: chats[i].url }).lean().exec();
+          chats[i].messages = messages;
+        } catch (err) {
+          res.status(400).json({ message: "Message could not be retrieved" });
         }
-        res.status(200).json(chats);
-      } catch (err) {
-        console.log(err);
-        res.status(400).json({ message: 'Error retrieving chats' });
       }
-    } else res.status(403).json();
-
+      res.status(200).json(chats);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({ message: 'Error retrieving chats' });
+    }
   }
 }
 
