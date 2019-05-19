@@ -25,6 +25,9 @@ let Deputy = new Schema({
     type: String,
     require: true
   },
+  influence: {
+    type: Number
+  },
   luariDeCuvant: {
     total: {
       type: Number

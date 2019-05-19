@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const needle = require('needle');
 const removeAccents = require('remove-accents');
+const { featureScalingNormalize } = require('../utils');
 
 const filename = path.join(__dirname, 'dump/deputies.json');
 const domain = 'http://www.cdep.ro';
@@ -40,11 +41,27 @@ const getPersonData = async (personLink) => {
         const motiuniMatches = /motiuni: (\d+)/;
 
         if (luariDeCuvantMatches) {
-            return { ...acc, ...{ luariDeCuvant: { total: parseInt(luariDeCuvantMatches[1]) || 0, sedinte: parseInt(luariDeCuvantMatches[2]) || 0 } } }
+            return {
+                ...acc, ...{
+                    luariDeCuvant: {
+                        total: parseInt(luariDeCuvantMatches[1]) || 0,
+                        sedinte: parseInt(luariDeCuvantMatches[2]) || 0,
+                        ratio: ((parseInt(luariDeCuvantMatches[2]) || 0) / (parseInt(luariDeCuvantMatches[1]) || 0)) || 0
+                    }
+                }
+            }
         } else if (declaratiiPoliticeMatches) {
             return { ...acc, ...{ declaratiiPolitice: parseInt(declaratiiPoliticeMatches[1]) || 0 } }
         } else if (propuneriLegislativeMatches) {
-            return { ...acc, ...{ propuneriLegislative: { total: parseInt(propuneriLegislativeMatches[1]) || 0, promulgate: parseInt(propuneriLegislativeMatches[2]) || 0 } } }
+            return {
+                ...acc, ...{
+                    propuneriLegislative: {
+                        total: parseInt(propuneriLegislativeMatches[1]) || 0,
+                        promulgate: parseInt(propuneriLegislativeMatches[2]) || 0,
+                        ratio: ((parseInt(propuneriLegislativeMatches[2]) || 0) / (parseInt(propuneriLegislativeMatches[1]) || 0)) || 0
+                    }
+                }
+            }
         } else if (propuneriDeHotarareMatches) {
             return { ...acc, ...{ propuneriDeHotarare: parseInt(propuneriDeHotarareMatches[1]) || 0 } }
         } else if (intrebariSiInterpelariMatches) {
@@ -55,20 +72,13 @@ const getPersonData = async (personLink) => {
 
         return { ...acc, [i]: el.match(luariDeCuvantMatches) }
     }, {
-            luariDeCuvant: { total: 0, sedinte: 0 },
+            luariDeCuvant: { total: 0, sedinte: 0, ratio: 0 },
             declaratiiPolitice: 0,
-            propuneriLegislative: { total: 0, promulgate: 0 },
+            propuneriLegislative: { total: 0, promulgate: 0, ratio: 0 },
             propuneriDeHotarare: 0,
             intrebariSiInterpelari: 0
         });
-
-    const influence =
-        activities.declaratiiPolitice * 0.05 +
-        activities.propuneriLegislative.promulgate * 0.4 +
-        (activities.propuneriLegislative.total > 0 ? (activities.propuneriLegislative.promulgate / activities.propuneriLegislative.total) * 0.3 : 0) +
-        activities.propuneriDeHotarare * 0.2;
-
-    return { pictureUrl: `${domain}${relativeLink}`, activity: activities, influence };
+    return { pictureUrl: `${domain}${relativeLink}`, activity: activities };
 }
 
 const getGeneralPeopleInformation = async () => {
@@ -121,7 +131,52 @@ const getPeopleCountyMatch = async () => {
                 console.log({ person, pc })
             }
         })
-    fs.writeFileSync(filename, JSON.stringify(people));
+
+    // const influence =
+    // activities.declaratiiPolitice * 0.05 +
+    // (activities.luariDeCuvant.total > 0 ? (activities.luariDeCuvant.sedinte / activities.luariDeCuvant.total) * 0.05 : 0) +
+    // activities.propuneriLegislative.promulgate * 0.2 +
+    // (activities.propuneriLegislative.total > 0 ? (activities.propuneriLegislative.promulgate / activities.propuneriLegislative.total) * 0.6 : 0) +
+    // activities.propuneriDeHotarare * 0.1;
+
+    // luariDeCuvant: { total: 0, sedinte: 0 },
+    // declaratiiPolitice: 0,
+    // propuneriLegislative: { total: 0, promulgate: 0 },
+    // propuneriDeHotarare: 0,
+    // intrebariSiInterpelari: 0
+    const minMaxValues = {
+        luariDeCuvant: {
+            total: { min: Math.min(...people.map(p => p.activity.luariDeCuvant.total)), max: Math.max(...people.map(p => p.activity.luariDeCuvant.total)) },
+            sedinte: { min: Math.min(...people.map(p => p.activity.luariDeCuvant.sedinte)), max: Math.max(...people.map(p => p.activity.luariDeCuvant.sedinte)) },
+            ratio: { min: Math.min(...people.map(p => p.activity.luariDeCuvant.ratio)), max: Math.max(...people.map(p => p.activity.luariDeCuvant.ratio)) }
+        },
+        declaratiiPolitice: { min: Math.min(...people.map(p => p.activity.declaratiiPolitice)), max: Math.max(...people.map(p => p.activity.declaratiiPolitice)) },
+        propuneriLegislative: {
+            total: { min: Math.min(...people.map(p => p.activity.propuneriLegislative.total)), max: Math.max(...people.map(p => p.activity.propuneriLegislative.total)) },
+            promulgate: { min: Math.min(...people.map(p => p.activity.propuneriLegislative.promulgate)), max: Math.max(...people.map(p => p.activity.propuneriLegislative.promulgate)) },
+            ratio: { min: Math.min(...people.map(p => p.activity.propuneriLegislative.ratio)), max: Math.max(...people.map(p => p.activity.propuneriLegislative.ratio)) }
+        },
+        propuneriDeHotarare: { min: Math.min(...people.map(p => p.activity.propuneriDeHotarare)), max: Math.max(...people.map(p => p.activity.propuneriDeHotarare)) },
+        intrebariSiInterpelari: { min: Math.min(...people.map(p => p.activity.intrebariSiInterpelari)), max: Math.max(...people.map(p => p.activity.intrebariSiInterpelari)) },
+    }
+    console.log(minMaxValues.propuneriLegislative, people[0].activity.propuneriLegislative)
+    fs.writeFileSync(filename, JSON.stringify(
+        people
+            .map((p) => {
+                const { activity } = p;
+                const influence =
+                    featureScalingNormalize(activity.luariDeCuvant.ratio, minMaxValues.luariDeCuvant.ratio) * 0.05 +
+                    featureScalingNormalize(activity.declaratiiPolitice, minMaxValues.declaratiiPolitice) * 0.05 +
+                    featureScalingNormalize(activity.propuneriLegislative.promulgate, minMaxValues.propuneriLegislative.promulgate) * 0.3 +
+                    featureScalingNormalize(activity.propuneriLegislative.ratio, minMaxValues.propuneriLegislative.ratio) * 0.4 +
+                    featureScalingNormalize(activity.intrebariSiInterpelari, minMaxValues.intrebariSiInterpelari) * 0.1 +
+                    featureScalingNormalize(activity.propuneriDeHotarare, minMaxValues.propuneriDeHotarare) * 0.1;
+                p.influence = influence || 0;
+                return p;
+            })
+
+            .sort((a, b) => b.influence - a.influence)
+    ));
     console.log('Deputies - Done');
 })();
 
