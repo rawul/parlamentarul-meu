@@ -132,18 +132,6 @@ const getPeopleCountyMatch = async () => {
             }
         })
 
-    // const influence =
-    // activities.declaratiiPolitice * 0.05 +
-    // (activities.luariDeCuvant.total > 0 ? (activities.luariDeCuvant.sedinte / activities.luariDeCuvant.total) * 0.05 : 0) +
-    // activities.propuneriLegislative.promulgate * 0.2 +
-    // (activities.propuneriLegislative.total > 0 ? (activities.propuneriLegislative.promulgate / activities.propuneriLegislative.total) * 0.6 : 0) +
-    // activities.propuneriDeHotarare * 0.1;
-
-    // luariDeCuvant: { total: 0, sedinte: 0 },
-    // declaratiiPolitice: 0,
-    // propuneriLegislative: { total: 0, promulgate: 0 },
-    // propuneriDeHotarare: 0,
-    // intrebariSiInterpelari: 0
     const minMaxValues = {
         luariDeCuvant: {
             total: { min: Math.min(...people.map(p => p.activity.luariDeCuvant.total)), max: Math.max(...people.map(p => p.activity.luariDeCuvant.total)) },
@@ -159,7 +147,7 @@ const getPeopleCountyMatch = async () => {
         propuneriDeHotarare: { min: Math.min(...people.map(p => p.activity.propuneriDeHotarare)), max: Math.max(...people.map(p => p.activity.propuneriDeHotarare)) },
         intrebariSiInterpelari: { min: Math.min(...people.map(p => p.activity.intrebariSiInterpelari)), max: Math.max(...people.map(p => p.activity.intrebariSiInterpelari)) },
     }
-    console.log(minMaxValues.propuneriLegislative, people[0].activity.propuneriLegislative)
+
     fs.writeFileSync(filename, JSON.stringify(
         people
             .map((p) => {
