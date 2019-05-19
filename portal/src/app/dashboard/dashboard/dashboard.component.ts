@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.dashService.getAll().subscribe((x: any) => {
       this.politicians = x;
+      console.log(this.politicians);
     })
     this.dashService.getTop10().subscribe(x => {
       console.log(x);
@@ -50,7 +51,7 @@ export class DashboardComponent implements OnInit {
     this.judet = this.politicians[0].county;
     document.getElementById('panel2').scrollIntoView();
   }
-  
+
   seeAll() {
     this.dashService.getAll().subscribe((x: any) => {
       this.politicians = x;
