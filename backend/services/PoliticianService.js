@@ -11,9 +11,13 @@ const PoliticianService = {
     return deputy || senator;
   },
   getPoliticians: async (req, res) => {
+    const page = parseInt(req.query.page);
+    const deputiesSize = parseInt(req.query.size) / 2;
+    const senatorsSize = parseInt(req.query.size) - deputiesSize;
     try {
-      const deputies = await Deputy.find({}).lean().exec();
-      const senators = await Senator.find({}).lean().exec();
+      
+      const deputies = await Deputy.find({}).skip(page*deputiesSize).limit(deputiesSize).lean().exec();
+      const senators = await Senator.find({}).skip(page*senatorsSize).limit(senatorsSize).lean().exec();
       res.json([...deputies, ...senators]);
     } catch (err) {
       res.status(400).json({ message: 'There has been an error' })
@@ -21,9 +25,12 @@ const PoliticianService = {
   },
   getPoliticiansByCounty: async (req, res) => {
     const county = req.params.county;
+    const page = parseInt(req.query.page);
+    const deputiesSize = parseInt(req.query.size) / 2;
+    const senatorsSize = parseInt(req.query.size) - deputiesSize;
     try {
-      const deputies = await Deputy.find({ county }).lean().exec();
-      const senators = await Senator.find({ county }).lean().exec();
+      const deputies = await Deputy.find({ county }).skip(page*deputiesSize).limit(deputiesSize).lean().exec();
+      const senators = await Senator.find({ county }).skip(page*senatorsSize).limit(senatorsSize).lean().exec();
       res.json([...deputies, ...senators]);
     } catch (err) {
       res.status(400).json({ message: 'There has been an error' })
@@ -31,10 +38,13 @@ const PoliticianService = {
   },
   getPoliticiansByName: async (req, res) => {
     const name = removeAccents(req.query.name);
+    const page = parseInt(req.query.page);
+    const deputiesSize = parseInt(req.query.size) / 2;
+    const senatorsSize = parseInt(req.query.size) - deputiesSize;
     console.log(name);
     try {
-      const deputies = await Deputy.find({ normalizedName : new RegExp('^' + name, "ig")}).lean().exec();
-      const senators = await Senator.find({ normalizedName : new RegExp('^' + name, "ig")}).lean().exec();
+      const deputies = await Deputy.find({ normalizedName : new RegExp('^' + name, "ig")}).skip(page*deputiesSize).limit(deputiesSize).lean().exec();
+      const senators = await Senator.find({ normalizedName : new RegExp('^' + name, "ig")}).skip(page*senatorsSize).limit(senatorsSize).lean().exec();
       res.json([...deputies, ...senators])
     } catch (err) {
       res.status(400).json({ message: 'Error when retrieving politicians by name' })
