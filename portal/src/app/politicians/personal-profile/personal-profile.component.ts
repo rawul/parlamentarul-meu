@@ -30,7 +30,7 @@ export class PersonalProfileComponent implements OnInit {
   }
 
   openAnuntDialog() {
-    this.dialog.open(AnuntDialogComponent, { data: this.politician.announcements }).afterClosed().subscribe(x => {
+    this.dialog.open(AnuntDialogComponent, { data: this.politician.announcement }).afterClosed().subscribe(x => {
       console.log(x);
     });
   }
