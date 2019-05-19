@@ -135,6 +135,37 @@
   height: 30px;
   width: 200px;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 14px;
   border: 1px solid #ffad00;
+}
+
+.metric-card {
+  height: 600px;
+  width: 28%;
+  max-width: 350px;
+  background-color: white;
+  margin: 20px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 0 1px 0px black;
+
+  .record {
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+    font-size: 15px;
+
+    &:nth-child(odd) {
+      background-color: #ffad0024;
+    }
+  }
+
+  .title {
+    background-color: #e6e6e6;
+    color: black;
+    padding: 30px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px solid #ffad00;
+  }
 }

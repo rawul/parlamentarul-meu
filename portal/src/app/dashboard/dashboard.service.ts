@@ -21,24 +21,28 @@ export class DashboardService {
 
   sendMessage(message: any) {
     return this.http.post(`http://192.168.6.203:2500/api/v1/message`, message);
-
   }
 
-  // getBrief(missionId: number): Observable<any> {
-  //   return this.http.get<any>();
-  // }
+  getTop10() {
+    return this.http.get('http://192.168.6.203:2500/api/v1/politicians/top10');
+  }
+
   getChats(email) {
     return this.http.get('http://192.168.6.203:2500/api/v1/chat/politician?email=' + email)
   }
+
   getChatByToken(token: string) {
     return this.http.get('http://192.168.6.203:2500/api/v1/chat/' + token);
   }
+
   postMessage(message: string, token: string, email: string) {
     return this.http.post('http://192.168.6.203:2500/api/v1/chat/' + token, { from: email, content: message })
   }
+
   getAll() {
     return this.http.get('http://192.168.6.203:2500/api/v1/politicians')
   }
+
   getSearch(text: string) {
     return this.http.get('http://192.168.6.203:2500/api/v1/politicians?name=' + text);
   }
