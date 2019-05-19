@@ -31,10 +31,16 @@ export class DashboardComponent implements OnInit {
   constructor(public dialog: MatDialog, private dashService: DashboardService) { }
 
   ngOnInit() {
-    this.seeAll();
+    this.dashService.getAll().subscribe((x: any) => {
+      this.politicians = x;
+    })
     this.dashService.getTop10().subscribe(x => {
       console.log(x);
       this.top10 = x;
+    });
+    this.dashService.getMostActive().subscribe((x: Politician[]) => {
+      console.log(x);
+      this.politicians = x;
     });
   }
 
@@ -44,6 +50,7 @@ export class DashboardComponent implements OnInit {
     this.judet = this.politicians[0].county;
     document.getElementById('panel2').scrollIntoView();
   }
+  
   seeAll() {
     this.dashService.getAll().subscribe((x: any) => {
       this.politicians = x;

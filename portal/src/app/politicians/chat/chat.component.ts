@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { DashboardService } from 'src/app/dashboard/dashboard.service';
 import { ActivatedRoute } from '@angular/router';
 import { interval } from 'rxjs'
@@ -9,11 +9,12 @@ import { interval } from 'rxjs'
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  interval : any;
+  interval: any;
   politician: any;
   currentMessage: string;
   chats: any;
   activeChat: number = 0;
+  @ViewChild('chat') private chat: ElementRef;
   messages = [
     {
       text: 'Te-a trimis Basescu',
@@ -45,7 +46,13 @@ export class ChatComponent implements OnInit {
     private service: DashboardService,
     private route: ActivatedRoute
   ) { }
+  scrollToBottom() {
+    this.chat.nativeElement.scrollTop = this.chat.nativeElement.scrollHeight;
 
+  }
+  ngAfterViewInit(){
+    this.scrollToBottom();
+  }
   ngOnInit() {
     this.politician = JSON.parse(localStorage.getItem('politician'));
 

@@ -1,13 +1,13 @@
 <div class="chat-wrapper">
   <app-nav-bar></app-nav-bar>
-  <div class="sidebar"  (click)="click()">
+  <div class="sidebar" (click)="click()">
     <div class="sidebar-chat" [ngClass]="{'active-chat': i == activeChat}">
       <div class="chat-icon">
         <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg" alt="">
       </div>
       <div class="details">
-        <div class="chat-name">De ce furi?</div>
-        <div class="chat-description">Pentru ca pot</div>
+        <div class="chat-name">{{sidebarChat.messages[0].content}}</div>
+        <div class="chat-description">{{sidebarChat.messages[0].from}}</div>
       </div>
     </div>
   </div>

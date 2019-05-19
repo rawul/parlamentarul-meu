@@ -39,7 +39,6 @@ const Chat = require('../models/ChatModel');
 
 const MessageService = {
   sendMessage: async (req, res) => {
-
     if (req.body.to !== null) {
       if(req.body.letter){
         exportAsPdf(req.body.to, req.body.content);

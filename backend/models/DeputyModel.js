@@ -18,12 +18,21 @@ let Deputy = new Schema({
   county: {
     type: String
   },
+  announcement: {
+    type: String
+  },
   pictureUrl: {
     type: String
   },
   email: {
     type: String,
     require: true
+  },
+  wealthDeclaration: {
+    type: String
+  },
+  influence: {
+    type: Number
   },
   luariDeCuvant: {
     total: {

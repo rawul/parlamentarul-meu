@@ -16,7 +16,8 @@ const Utils = {
         // console.log(politician.name, wordsFound)
         // console.log(Utils.isNamedInculded(str, 'iordache'), str)
         return (0.1 * (levenshteinDistance / 3)) + (0.9 * wordsFound);
-    }
+    },
+    featureScalingNormalize: (x, { min, max }) => (x - min) / (max - min)
 }
 
 module.exports = Utils;

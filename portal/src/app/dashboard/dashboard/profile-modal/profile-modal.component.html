@@ -14,7 +14,7 @@
     </div>
     <div class="field">
       <div class="label">Judet</div>
-      <div class="value">{{politician.county?politician.county:'-'}}</div>
+      <div class="value" style="text-transform: capitalize">{{politician.county?politician.county:'-'}}</div>
     </div>
 
     <div class="field">
@@ -32,7 +32,8 @@
     </div>
     <div class="field">
       <div class="label">Propuneri legislative</div>
-      <div class="value">{{politician.activity.propuneriLegislative.total}},
+      <div class="value">{{politician.activity.propuneriLegislative.total}} 
+        <span style="font-size:11px; margin: 0px 3px">din care</span> 
         {{politician.activity.propuneriLegislative.promulgate}} promulgate</div>
     </div>
     <div class="field">
