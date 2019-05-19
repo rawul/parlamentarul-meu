@@ -18,6 +18,8 @@ export class PersonalProfileComponent implements OnInit {
     // if (!localStorage.getItem('token')) {
     //   this.router.navigateByUrl('/dashboard');
     // }
+    document.getElementById('panel0').scrollIntoView();
+
     if (localStorage.getItem('politician')) {
       this.politician = (JSON.parse(localStorage.getItem('politician')));
     }

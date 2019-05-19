@@ -1,18 +1,18 @@
 <div class="chat-wrapper">
   <div class="sidebar">
     <div class="sidebar-chat" *ngFor="let sidebarChat of chats; let chatIndex = index"
-      [ngClass]="{'active-chat': i == activeChat}" (click)="selectChat(chatIndex)">
+      [ngClass]="{'active-chat': chatIndex == activeChat}" (click)="selectChat(chatIndex)">
       <div class="chat-icon">
         <img src="https://www.newmoney.ro/wp-content/uploads/2019/03/dragnea-mediafax-newmoney-2-840x600.jpg" alt="">
       </div>
       <div class="details">
-        <div class="chat-name">De ce furi?</div>
-        <div class="chat-description">Pentru ca pot</div>
+        <div class="chat-name">{{sidebarChat.messages[0].content}}</div>
+        <div class="chat-description">{{sidebarChat.messages[0].from}}</div>
       </div>
     </div>
   </div>
-  <div class="chat">
-    <div class="layout vertical flex-1" style="margin-bottom: 64px;    overflow: auto;">
+  <div class="chat" id="chat">
+    <div #chat class="layout vertical flex-1" style="margin-bottom: 64px;    overflow: auto;">
       <div style="height: 60px;" class="flex-1" *ngIf="chats && chats.length !=0">
         <!-- <div class="inc-message" style=" width: fit-content; ">
           <span style="     background-color: #ffad00;
