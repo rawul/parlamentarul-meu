@@ -38,7 +38,7 @@ const PoliticianService = {
     }
   },
   getPoliticiansByName: async (req, res) => {
-    const name = removeAccents(req.query.name);
+    const name = req.query.name;
     const page = parseInt(req.query.page);
     const deputiesSize = parseInt(req.query.size) / 2;
     const senatorsSize = parseInt(req.query.size) - deputiesSize;
