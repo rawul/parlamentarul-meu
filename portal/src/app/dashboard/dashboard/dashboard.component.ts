@@ -25,16 +25,17 @@ import { trigger, transition, animate, style } from '@angular/animations'
 export class DashboardComponent implements OnInit {
   judet = '';
   searchText: string;
-  politicians: Politician[] = [
-    new Politician('bob', 'asd', 'usr', 'asda@asd.com', 'bogdanestilor nr 1230', 'omg', 'timis', PoliticianType.deputy)
-  ];
+  politicians: Politician[] = [];
+  top10;
 
   constructor(public dialog: MatDialog, private dashService: DashboardService) { }
 
   ngOnInit() {
-    this.dashService.getAll().subscribe((x: any) => {
-      this.politicians = x;
-    })
+    this.seeAll();
+    this.dashService.getTop10().subscribe(x => {
+      console.log(x);
+      this.top10 = x;
+    });
   }
 
   loadPoliticians($event) {
@@ -62,6 +63,10 @@ export class DashboardComponent implements OnInit {
       }
       case 2: {
         document.getElementById('panel2').scrollIntoView();
+        break;
+      }
+      case 3: {
+        document.getElementById('panel3').scrollIntoView();
         break;
       }
     }

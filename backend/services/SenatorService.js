@@ -39,6 +39,7 @@ const SenatorService = {
   },
 
   getByParty: async (req, res) => {
+    console.log(req.query.party);
     let party = req.query.party;
     const page = req.query.page;
     const size = req.query.size;
