@@ -25,9 +25,9 @@ const getPersonDetails = async ($, row) => {
 }
 
 const getPersonData = async (personLink) => {
-    console.log('getting picture for', personLink);
-    const response = await needle('GET', personLink);
-    const $ = cheerio.load(response.body);
+    console.log('getting data for', personLink);
+    let response = await needle('GET', personLink);
+    let $ = cheerio.load(response.body);
     const relativeLink = $('.profile-pic-dep a').attr('href');
     const activityLength = $('.boxStiri > div');
     const activity = activityLength.eq(activityLength.length - 2).find('table [valign="top"]').map(function () { return removeAccents($(this).text()).toLowerCase() }).toArray();
@@ -78,7 +78,11 @@ const getPersonData = async (personLink) => {
             propuneriDeHotarare: 0,
             intrebariSiInterpelari: 0
         });
-    return { pictureUrl: `${domain}${relativeLink}`, activity: activities };
+    const wealthDeclarationLink = `${personLink}&pag=5`;
+    response = await needle('GET', wealthDeclarationLink);
+    $ = cheerio.load(response.body);
+    const wealthDeclaration = `${domain}${$('[target="PDF"]').attr('href')}`
+    return { pictureUrl: `${domain}${relativeLink}`, activity: activities, wealthDeclaration };
 }
 
 const getGeneralPeopleInformation = async () => {
