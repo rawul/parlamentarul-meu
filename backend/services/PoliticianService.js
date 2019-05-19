@@ -3,7 +3,8 @@ const removeAccents = require('remove-accents');
 
 let Deputy = require('../models/DeputyModel');
 let Senator = require('../models/SenatorModel');
-let User = require('../models/UserModel')
+let User = require('../models/UserModel');
+let Chat = require('../models/ChatModel');
 
 const PoliticianService = {
   getPoliticianByUser: async (user) => {
@@ -52,23 +53,22 @@ const PoliticianService = {
     }
   },
   getActivePoliticians: async (req, res) => {
+    function compare( a, b ) {
+      return a.rate>b.rate? -1 : 1;
+    }
     try {
       const users = await User.find().lean().exec();
-      const activeRate = [];
+      console.log({users});
+      var activeRate = [];
       for (var i = 0; i < users.length; i++) {
-        try {
-          const chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
+          var chats = await Chat.find({ politicianMail: users[i].email }).lean().exec();
           console.log({ chats });
-          activeRate += [users[i].name, chats.length];
-        } catch (err) {
-          res.status(400).json({ message: "Message could not be retrieved" });
-        }
+          activeRate.push({mail: users[i].email, rate: chats.length});
+          console.log({activeRate});
       }
-      activeRate.sort((a,b) => {
-        if(a[1] > b[1])
-          return a[1] > b[1] ? 1 : -1;
-      });
-      res.status(400).json(activeRate.slice(0, 10));
+      activeRate.sort(compare);
+      console.log(activeRate.slice(0, 10));
+      res.json(activeRate.slice(0, 10));
     } catch (err) {
       res.status(400).json({ message: 'There has been an error' })
     }
