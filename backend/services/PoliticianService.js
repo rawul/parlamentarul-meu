@@ -148,6 +148,7 @@ const PoliticianService = {
           activeRate.push({mail: users[i].email, rate: chats.length});
           console.log({activeRate});
       }
+<<<<<<< HEAD
       activeRate.sort(compare);
       console.log(activeRate.slice(0, 10));
       res.json(activeRate.slice(0, 10));
@@ -205,6 +206,13 @@ const PoliticianService = {
       activeRate.sort(compare);
       console.log(activeRate.slice(0, 10));
       res.json(activeRate.slice(0, 10));
+=======
+      activeRate.sort((a, b) => {
+        if (a[1] > b[1])
+          return a[1] > b[1] ? 1 : -1;
+      });
+      res.status(400).json(activeRate.slice(0, 10));
+>>>>>>> c18524dd31c2a05f86dd385d48c75744e71ffd9f
     } catch (err) {
       res.status(400).json({ message: 'There has been an error' })
     }

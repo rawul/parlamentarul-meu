@@ -25,6 +25,9 @@ let Deputy = new Schema({
     type: String,
     require: true
   },
+  wealthDeclaration: {
+    type: String
+  },
   influence: {
     type: Number
   },
