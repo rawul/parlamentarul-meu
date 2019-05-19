@@ -99,13 +99,13 @@
     <div *ngIf="top10" style="width:100%;justify-content: space-evenly;" class="layout horizontal ">
       <div class="layout vertical metric-card">
         <span class="title">Partid</span>
-        <span class="record" *ngFor="let party of top10.parties;let i = index">
+        <span class="record" *ngFor="let party of top10.topParties;let i = index">
           <strong>{{i+1}}</strong>. {{party.name}}
         </span>
       </div>
       <div class="layout vertical metric-card">
         <span class="title">Judet</span>
-        <span style="text-transform: capitalize" class="record" *ngFor="let party of top10.counties;let i = index">
+        <span style="text-transform: capitalize" class="record" *ngFor="let party of top10.topCounties;let i = index">
           <strong>{{i+1}}</strong>. {{party.name}}
         </span>
       </div>
