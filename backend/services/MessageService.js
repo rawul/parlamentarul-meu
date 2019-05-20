@@ -44,10 +44,10 @@ const MessageService = {
   sendMessage: async (req, res) => {
     if (req.body.to !== null) {
       if (req.body.letter) {
-        await exportAsPdf(req.body.to, req.body.content);
+        await exportAsPdf(req.body.from, req.body.content);
         console.log('after export')
         let toDeputyMail = transporter.sendMail({
-          to: req.body.to,
+          to: 'darius.costolas@student.upt.ro',
           cc: req.body.from,
           subject: 'O noua scrisoare a fost generata',
           text: req.body.content,
