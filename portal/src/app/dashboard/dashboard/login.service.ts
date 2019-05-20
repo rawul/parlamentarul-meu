@@ -11,6 +11,6 @@ export class LoginService {
     private http: HttpClient
   ) { }
   getLogin(username, password): Observable<any> {
-    return this.http.post('http://192.168.6.203:2500/api/v1/login', { email: username, password: password });
+    return this.http.post('http://pm.dariuscostolas.me:2500/api/v1/login', { email: username, password: password });
   }
 }

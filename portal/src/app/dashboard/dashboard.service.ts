@@ -16,51 +16,51 @@ export class DashboardService {
   }
 
   getAllByCounty(county: string) {
-    return this.http.get(`http://192.168.6.203:2500/api/v1/politician/${county.toLowerCase()}`);
+    return this.http.get(`http://pm.dariuscostolas.me:2500/api/v1/politician/${county.toLowerCase()}`);
   }
 
   sendMessage(message: any) {
-    return this.http.post(`http://192.168.6.203:2500/api/v1/message`, message);
+    return this.http.post(`http://pm.dariuscostolas.me:2500/api/v1/message`, message);
   }
 
   getTop10() {
-    return this.http.get('http://192.168.6.203:2500/api/v1/politicians/top10');
+    return this.http.get('http://pm.dariuscostolas.me:2500/api/v1/politicians/top10');
   }
 
   getMostActive() {
-    return this.http.get('http://192.168.6.203:2500/api/v1/politicians/active');
+    return this.http.get('http://pm.dariuscostolas.me:2500/api/v1/politicians/active');
   }
 
   getChats(email) {
     let header = new HttpHeaders({ 'authorization': localStorage.getItem('token') });
-    return this.http.get('http://192.168.6.203:2500/api/v1/chat/politician?email=' + email, { headers: header })
+    return this.http.get('http://pm.dariuscostolas.me:2500/api/v1/chat/politician?email=' + email, { headers: header })
   }
 
   getChatByToken(token: string) {
-    return this.http.get('http://192.168.6.203:2500/api/v1/chat/' + token);
+    return this.http.get('http://pm.dariuscostolas.me:2500/api/v1/chat/' + token);
   }
 
   postMessage(message: string, token: string, email: string) {
-    return this.http.post('http://192.168.6.203:2500/api/v1/chat/' + token, { from: email, content: message })
+    return this.http.post('http://pm.dariuscostolas.me:2500/api/v1/chat/' + token, { from: email, content: message })
   }
 
   getAll() {
-    return this.http.get('http://192.168.6.203:2500/api/v1/politicians?page=0&size=8&name=')
+    return this.http.get('http://pm.dariuscostolas.me:2500/api/v1/politicians?page=0&size=8&name=')
   }
 
   getSearch(text: string) {
-    return this.http.get('http://192.168.6.203:2500/api/v1/politicians?page=0&size=8&name=' + text);
+    return this.http.get('http://pm.dariuscostolas.me:2500/api/v1/politicians?page=0&size=8&name=' + text);
   }
 
   postAnnouncement(content) {
     let header = new HttpHeaders({ 'authorization': localStorage.getItem('token') });
-    return this.http.post('http://192.168.6.203:2500/api/v1/politician/announcement', { content }, { headers: header });
+    return this.http.post('http://pm.dariuscostolas.me:2500/api/v1/politician/announcement', { content }, { headers: header });
   }
 
   getAnnouncements() {
-    return this.http.get('http://192.168.6.203:2500/api/v1/politician/announcement');
+    return this.http.get('http://pm.dariuscostolas.me:2500/api/v1/politician/announcement');
   }
   getMore(pageIndex) {
-    return this.http.get('http://192.168.6.203:2500/api/v1/politicians?page=' + pageIndex + '&size=8&name=')
+    return this.http.get('http://pm.dariuscostolas.me:2500/api/v1/politicians?page=' + pageIndex + '&size=8&name=')
   }
 }
