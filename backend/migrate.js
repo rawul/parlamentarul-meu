@@ -18,6 +18,6 @@ const generator = require('generate-password');
     [... await Deputy.find({}).lean().exec(), ... await Senator.find({}).lean().exec()]
         .filter(politician => politician.email)
         .forEach((politician) => {
-            User.register({ username: politician.name, email: politician.email, token: '123', politicianId: politician._id }, politician.name === 'Deputat Test' ? '123' : generator.generate({ length: 10, numbers: true }))
+            User.register({ username: politician.name, email: politician.email, token: '123', politicianId: politician._id }, politician.email === 'raulgherasim@gmail.com' ? '123' : generator.generate({ length: 10, numbers: true }))
         });
 })()
